@@ -15,11 +15,11 @@
 		A0EF64241EC407D7006609F7 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64231EC407D7006609F7 /* LoginController.swift */; };
 		A0EF64291EC40905006609F7 /* KeyChainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64281EC40905006609F7 /* KeyChainAccess.swift */; };
 		A0EF642B1EC40946006609F7 /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF642A1EC40946006609F7 /* HTTPHelper.swift */; };
-		A0EF64351EC40ADC006609F7 /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF642E1EC40ADC006609F7 /* AESCrypt.m */; };
-		A0EF64361EC40ADC006609F7 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64301EC40ADC006609F7 /* NSData+Base64.m */; };
-		A0EF64371EC40ADC006609F7 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64321EC40ADC006609F7 /* NSData+CommonCrypto.m */; };
-		A0EF64381EC40ADC006609F7 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64341EC40ADC006609F7 /* NSString+Base64.m */; };
 		A0EF643A1EC40C0E006609F7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EF64391EC40C0E006609F7 /* Security.framework */; };
+		A0F36A421ECA154F0072B5DD /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */; };
+		A0F36A431ECA154F0072B5DD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3D1ECA154F0072B5DD /* NSData+Base64.m */; };
+		A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3F1ECA154F0072B5DD /* NSData+CommonCrypto.m */; };
+		A0F36A451ECA154F0072B5DD /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A411ECA154F0072B5DD /* NSString+Base64.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,16 +33,16 @@
 		A0EF64231EC407D7006609F7 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		A0EF64281EC40905006609F7 /* KeyChainAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainAccess.swift; sourceTree = "<group>"; };
 		A0EF642A1EC40946006609F7 /* HTTPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHelper.swift; sourceTree = "<group>"; };
-		A0EF642D1EC40ADC006609F7 /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
-		A0EF642E1EC40ADC006609F7 /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
-		A0EF642F1EC40ADC006609F7 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		A0EF64301EC40ADC006609F7 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		A0EF64311EC40ADC006609F7 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
-		A0EF64321EC40ADC006609F7 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
-		A0EF64331EC40ADC006609F7 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
-		A0EF64341EC40ADC006609F7 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		A0EF64391EC40C0E006609F7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A0EF643D1EC420FC006609F7 /* Selfie-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Selfie-Bridging-Header.h"; sourceTree = "<group>"; };
+		A0F36A3A1ECA154F0072B5DD /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
+		A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
+		A0F36A3C1ECA154F0072B5DD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		A0F36A3D1ECA154F0072B5DD /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		A0F36A3E1ECA154F0072B5DD /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		A0F36A3F1ECA154F0072B5DD /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		A0F36A401ECA154F0072B5DD /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		A0F36A411ECA154F0072B5DD /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +77,7 @@
 		A0EF640F1EC40757006609F7 /* ReputationApp */ = {
 			isa = PBXGroup;
 			children = (
-				A0EF642C1EC40ADC006609F7 /* AESCrypt */,
+				A0F36A391ECA154F0072B5DD /* AESCrypt */,
 				A0EF64101EC40757006609F7 /* AppDelegate.swift */,
 				A0EF64281EC40905006609F7 /* KeyChainAccess.swift */,
 				A0EF642A1EC40946006609F7 /* HTTPHelper.swift */,
@@ -108,20 +108,19 @@
 			name = "Supporting files";
 			sourceTree = "<group>";
 		};
-		A0EF642C1EC40ADC006609F7 /* AESCrypt */ = {
+		A0F36A391ECA154F0072B5DD /* AESCrypt */ = {
 			isa = PBXGroup;
 			children = (
-				A0EF642D1EC40ADC006609F7 /* AESCrypt.h */,
-				A0EF642E1EC40ADC006609F7 /* AESCrypt.m */,
-				A0EF642F1EC40ADC006609F7 /* NSData+Base64.h */,
-				A0EF64301EC40ADC006609F7 /* NSData+Base64.m */,
-				A0EF64311EC40ADC006609F7 /* NSData+CommonCrypto.h */,
-				A0EF64321EC40ADC006609F7 /* NSData+CommonCrypto.m */,
-				A0EF64331EC40ADC006609F7 /* NSString+Base64.h */,
-				A0EF64341EC40ADC006609F7 /* NSString+Base64.m */,
+				A0F36A3A1ECA154F0072B5DD /* AESCrypt.h */,
+				A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */,
+				A0F36A3C1ECA154F0072B5DD /* NSData+Base64.h */,
+				A0F36A3D1ECA154F0072B5DD /* NSData+Base64.m */,
+				A0F36A3E1ECA154F0072B5DD /* NSData+CommonCrypto.h */,
+				A0F36A3F1ECA154F0072B5DD /* NSData+CommonCrypto.m */,
+				A0F36A401ECA154F0072B5DD /* NSString+Base64.h */,
+				A0F36A411ECA154F0072B5DD /* NSString+Base64.m */,
 			);
-			name = AESCrypt;
-			path = "../../../Downloads/Selfie-Final/Selfie/AESCrypt";
+			path = AESCrypt;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,14 +195,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0EF64381EC40ADC006609F7 /* NSString+Base64.m in Sources */,
-				A0EF64371EC40ADC006609F7 /* NSData+CommonCrypto.m in Sources */,
+				A0F36A451ECA154F0072B5DD /* NSString+Base64.m in Sources */,
+				A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */,
 				A0EF64131EC40757006609F7 /* ViewController.swift in Sources */,
 				A0EF64291EC40905006609F7 /* KeyChainAccess.swift in Sources */,
 				A0EF642B1EC40946006609F7 /* HTTPHelper.swift in Sources */,
-				A0EF64361EC40ADC006609F7 /* NSData+Base64.m in Sources */,
+				A0F36A431ECA154F0072B5DD /* NSData+Base64.m in Sources */,
 				A0EF64241EC407D7006609F7 /* LoginController.swift in Sources */,
-				A0EF64351EC40ADC006609F7 /* AESCrypt.m in Sources */,
+				A0F36A421ECA154F0072B5DD /* AESCrypt.m in Sources */,
 				A0EF64111EC40757006609F7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
