@@ -7,8 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A07B3BC21ED7800800F10657 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BC11ED7800800F10657 /* DataService.swift */; };
+		A07B3BC41ED780B100F10657 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BC31ED780B100F10657 /* AuthService.swift */; };
+		A07B3BC61ED7810E00F10657 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BC51ED7810E00F10657 /* Constants.swift */; };
+		A07B3BCC1ED8C66000F10657 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BCB1ED8C66000F10657 /* Extensions.swift */; };
+		A07B3BD41ED8C98600F10657 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BD31ED8C98600F10657 /* CustomImageView.swift */; };
+		A07B3BD91ED8DA5200F10657 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */; };
+		A07B3C371ED91DCC00F10657 /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C361ED91DCC00F10657 /* UserSearchController.swift */; };
+		A07B3C391ED91DF000F10657 /* UserRankingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C381ED91DF000F10657 /* UserRankingController.swift */; };
+		A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C3A1ED91EDB00F10657 /* SignUpController.swift */; };
+		A07B3C3E1EDB82FD00F10657 /* UserSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C3D1EDB82FD00F10657 /* UserSearchCell.swift */; };
+		A07B3C401EDB83EE00F10657 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C3F1EDB83EE00F10657 /* UserProfileController.swift */; };
+		A07B3C421EDB846D00F10657 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C411EDB846D00F10657 /* User.swift */; };
 		A0EF64111EC40757006609F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64101EC40757006609F7 /* AppDelegate.swift */; };
-		A0EF64131EC40757006609F7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64121EC40757006609F7 /* ViewController.swift */; };
 		A0EF64161EC40757006609F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF64141EC40757006609F7 /* Main.storyboard */; };
 		A0EF64181EC40758006609F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0EF64171EC40758006609F7 /* Assets.xcassets */; };
 		A0EF641B1EC40758006609F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF64191EC40758006609F7 /* LaunchScreen.storyboard */; };
@@ -16,18 +27,33 @@
 		A0EF64291EC40905006609F7 /* KeyChainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64281EC40905006609F7 /* KeyChainAccess.swift */; };
 		A0EF642B1EC40946006609F7 /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF642A1EC40946006609F7 /* HTTPHelper.swift */; };
 		A0EF643A1EC40C0E006609F7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EF64391EC40C0E006609F7 /* Security.framework */; };
+		A0F0B7561EDF1DD1005DBD4D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0B7551EDF1DD1005DBD4D /* UserProfileHeader.swift */; };
 		A0F36A421ECA154F0072B5DD /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */; };
 		A0F36A431ECA154F0072B5DD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3D1ECA154F0072B5DD /* NSData+Base64.m */; };
 		A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3F1ECA154F0072B5DD /* NSData+CommonCrypto.m */; };
 		A0F36A451ECA154F0072B5DD /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A411ECA154F0072B5DD /* NSString+Base64.m */; };
+		ADA69A41AA0381841DB531F7 /* Pods_ReputationApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCE1F906177D94704544667B /* Pods_ReputationApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E28B6B66614A10E560EF10A /* Pods-ReputationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReputationApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReputationApp/Pods-ReputationApp.release.xcconfig"; sourceTree = "<group>"; };
+		A07B3BC11ED7800800F10657 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
+		A07B3BC31ED780B100F10657 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		A07B3BC51ED7810E00F10657 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A07B3BCB1ED8C66000F10657 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		A07B3BD31ED8C98600F10657 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = ReputationApp/MainTabBarController.swift; sourceTree = "<group>"; };
+		A07B3C361ED91DCC00F10657 /* UserSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
+		A07B3C381ED91DF000F10657 /* UserRankingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRankingController.swift; sourceTree = "<group>"; };
+		A07B3C3A1ED91EDB00F10657 /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
+		A07B3C3D1EDB82FD00F10657 /* UserSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchCell.swift; sourceTree = "<group>"; };
+		A07B3C3F1EDB83EE00F10657 /* UserProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
+		A07B3C411EDB846D00F10657 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		A07B957A1F2693CE008E9EA0 /* ReputationApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReputationApp.entitlements; sourceTree = "<group>"; };
 		A0EF640D1EC40757006609F7 /* ReputationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReputationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A0EF64101EC40757006609F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A0EF64121EC40757006609F7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A0EF64101EC40757006609F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ReputationApp/AppDelegate.swift; sourceTree = "<group>"; };
 		A0EF64151EC40757006609F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A0EF64171EC40758006609F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A0EF64171EC40758006609F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ReputationApp/Assets.xcassets; sourceTree = "<group>"; };
 		A0EF641A1EC40758006609F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0EF641C1EC40758006609F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0EF64231EC407D7006609F7 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
@@ -35,6 +61,7 @@
 		A0EF642A1EC40946006609F7 /* HTTPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHelper.swift; sourceTree = "<group>"; };
 		A0EF64391EC40C0E006609F7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A0EF643D1EC420FC006609F7 /* Selfie-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Selfie-Bridging-Header.h"; sourceTree = "<group>"; };
+		A0F0B7551EDF1DD1005DBD4D /* UserProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		A0F36A3A1ECA154F0072B5DD /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
 		A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
 		A0F36A3C1ECA154F0072B5DD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -43,6 +70,8 @@
 		A0F36A3F1ECA154F0072B5DD /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		A0F36A401ECA154F0072B5DD /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		A0F36A411ECA154F0072B5DD /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		C96931D9602D246D384F1FBA /* Pods-ReputationApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReputationApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ReputationApp/Pods-ReputationApp.debug.xcconfig"; sourceTree = "<group>"; };
+		FCE1F906177D94704544667B /* Pods_ReputationApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ReputationApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,18 +80,77 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0EF643A1EC40C0E006609F7 /* Security.framework in Frameworks */,
+				ADA69A41AA0381841DB531F7 /* Pods_ReputationApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0198E4C590803DD6E96A0226 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FCE1F906177D94704544667B /* Pods_ReputationApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		03557195C78A114C67632D2C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C96931D9602D246D384F1FBA /* Pods-ReputationApp.debug.xcconfig */,
+				6E28B6B66614A10E560EF10A /* Pods-ReputationApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A07B3BBE1ED77C4100F10657 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A07B3BC11ED7800800F10657 /* DataService.swift */,
+				A07B3BC31ED780B100F10657 /* AuthService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		A07B3C3C1EDB82E800F10657 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				A07B3C361ED91DCC00F10657 /* UserSearchController.swift */,
+				A07B3C3D1EDB82FD00F10657 /* UserSearchCell.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		A07BD4C61F1EB05100A4ED14 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A07B3C411EDB846D00F10657 /* User.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A07BD4C71F1EB0D300A4ED14 /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+				A07B3C381ED91DF000F10657 /* UserRankingController.swift */,
+			);
+			name = Ranking;
+			sourceTree = "<group>";
+		};
 		A0EF64041EC40757006609F7 = {
 			isa = PBXGroup;
 			children = (
 				A0EF64391EC40C0E006609F7 /* Security.framework */,
 				A0EF640F1EC40757006609F7 /* ReputationApp */,
+				A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */,
+				A0EF64101EC40757006609F7 /* AppDelegate.swift */,
+				A0EF64141EC40757006609F7 /* Main.storyboard */,
+				A0EF64191EC40758006609F7 /* LaunchScreen.storyboard */,
+				A0EF64171EC40758006609F7 /* Assets.xcassets */,
 				A0EF640E1EC40757006609F7 /* Products */,
+				03557195C78A114C67632D2C /* Pods */,
+				0198E4C590803DD6E96A0226 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -77,35 +165,49 @@
 		A0EF640F1EC40757006609F7 /* ReputationApp */ = {
 			isa = PBXGroup;
 			children = (
+				A07B957A1F2693CE008E9EA0 /* ReputationApp.entitlements */,
+				A0EF64221EC407B2006609F7 /* Login/SignUp */,
+				A07B3C3C1EDB82E800F10657 /* Search */,
+				A07BD4C71F1EB0D300A4ED14 /* Ranking */,
+				A0F0B7571EDF1F04005DBD4D /* Profile */,
+				A07BD4C61F1EB05100A4ED14 /* Models */,
+				A07B3BBE1ED77C4100F10657 /* Services */,
 				A0F36A391ECA154F0072B5DD /* AESCrypt */,
-				A0EF64101EC40757006609F7 /* AppDelegate.swift */,
-				A0EF64281EC40905006609F7 /* KeyChainAccess.swift */,
-				A0EF642A1EC40946006609F7 /* HTTPHelper.swift */,
-				A0EF64141EC40757006609F7 /* Main.storyboard */,
-				A0EF64171EC40758006609F7 /* Assets.xcassets */,
 				A0EF64251EC40839006609F7 /* Supporting files */,
-				A0EF64221EC407B2006609F7 /* Controllers */,
-				A0EF64191EC40758006609F7 /* LaunchScreen.storyboard */,
 			);
 			path = ReputationApp;
 			sourceTree = "<group>";
 		};
-		A0EF64221EC407B2006609F7 /* Controllers */ = {
+		A0EF64221EC407B2006609F7 /* Login/SignUp */ = {
 			isa = PBXGroup;
 			children = (
 				A0EF64231EC407D7006609F7 /* LoginController.swift */,
-				A0EF64121EC40757006609F7 /* ViewController.swift */,
+				A07B3C3A1ED91EDB00F10657 /* SignUpController.swift */,
 			);
-			name = Controllers;
+			name = Login/SignUp;
 			sourceTree = "<group>";
 		};
 		A0EF64251EC40839006609F7 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				A0EF64281EC40905006609F7 /* KeyChainAccess.swift */,
+				A0EF642A1EC40946006609F7 /* HTTPHelper.swift */,
+				A07B3BCB1ED8C66000F10657 /* Extensions.swift */,
+				A07B3BD31ED8C98600F10657 /* CustomImageView.swift */,
 				A0EF643D1EC420FC006609F7 /* Selfie-Bridging-Header.h */,
 				A0EF641C1EC40758006609F7 /* Info.plist */,
+				A07B3BC51ED7810E00F10657 /* Constants.swift */,
 			);
 			name = "Supporting files";
+			sourceTree = "<group>";
+		};
+		A0F0B7571EDF1F04005DBD4D /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				A07B3C3F1EDB83EE00F10657 /* UserProfileController.swift */,
+				A0F0B7551EDF1DD1005DBD4D /* UserProfileHeader.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		A0F36A391ECA154F0072B5DD /* AESCrypt */ = {
@@ -130,9 +232,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0EF641F1EC40758006609F7 /* Build configuration list for PBXNativeTarget "ReputationApp" */;
 			buildPhases = (
+				026F15C478C047265C8C8236 /* [CP] Check Pods Manifest.lock */,
 				A0EF64091EC40757006609F7 /* Sources */,
 				A0EF640A1EC40757006609F7 /* Frameworks */,
 				A0EF640B1EC40757006609F7 /* Resources */,
+				658933E60E77ECC30F86550E /* [CP] Embed Pods Frameworks */,
+				53790618F8E5CFB8FEC17FA1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -155,7 +260,14 @@
 				TargetAttributes = {
 					A0EF640C1EC40757006609F7 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = W7KDN9ZT24;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -190,20 +302,80 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		026F15C478C047265C8C8236 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		53790618F8E5CFB8FEC17FA1 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReputationApp/Pods-ReputationApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		658933E60E77ECC30F86550E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ReputationApp/Pods-ReputationApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A0EF64091EC40757006609F7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A07B3BD41ED8C98600F10657 /* CustomImageView.swift in Sources */,
 				A0F36A451ECA154F0072B5DD /* NSString+Base64.m in Sources */,
 				A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */,
-				A0EF64131EC40757006609F7 /* ViewController.swift in Sources */,
+				A07B3C391ED91DF000F10657 /* UserRankingController.swift in Sources */,
+				A07B3C3E1EDB82FD00F10657 /* UserSearchCell.swift in Sources */,
 				A0EF64291EC40905006609F7 /* KeyChainAccess.swift in Sources */,
 				A0EF642B1EC40946006609F7 /* HTTPHelper.swift in Sources */,
+				A07B3BC41ED780B100F10657 /* AuthService.swift in Sources */,
+				A07B3C421EDB846D00F10657 /* User.swift in Sources */,
 				A0F36A431ECA154F0072B5DD /* NSData+Base64.m in Sources */,
 				A0EF64241EC407D7006609F7 /* LoginController.swift in Sources */,
+				A07B3C401EDB83EE00F10657 /* UserProfileController.swift in Sources */,
+				A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */,
+				A07B3BD91ED8DA5200F10657 /* MainTabBarController.swift in Sources */,
+				A07B3BCC1ED8C66000F10657 /* Extensions.swift in Sources */,
+				A0F0B7561EDF1DD1005DBD4D /* UserProfileHeader.swift in Sources */,
+				A07B3C371ED91DCC00F10657 /* UserSearchController.swift in Sources */,
 				A0F36A421ECA154F0072B5DD /* AESCrypt.m in Sources */,
 				A0EF64111EC40757006609F7 /* AppDelegate.swift in Sources */,
+				A07B3BC21ED7800800F10657 /* DataService.swift in Sources */,
+				A07B3BC61ED7810E00F10657 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +388,7 @@
 				A0EF64151EC40757006609F7 /* Base */,
 			);
 			name = Main.storyboard;
+			path = ReputationApp;
 			sourceTree = "<group>";
 		};
 		A0EF64191EC40758006609F7 /* LaunchScreen.storyboard */ = {
@@ -224,6 +397,7 @@
 				A0EF641A1EC40758006609F7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = ReputationApp;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -322,8 +496,11 @@
 		};
 		A0EF64201EC40758006609F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C96931D9602D246D384F1FBA /* Pods-ReputationApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ReputationApp/ReputationApp.entitlements;
+				DEVELOPMENT_TEAM = W7KDN9ZT24;
 				INFOPLIST_FILE = ReputationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.OmarTorres.ReputationApp;
@@ -335,8 +512,11 @@
 		};
 		A0EF64211EC40758006609F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E28B6B66614A10E560EF10A /* Pods-ReputationApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ReputationApp/ReputationApp.entitlements;
+				DEVELOPMENT_TEAM = W7KDN9ZT24;
 				INFOPLIST_FILE = ReputationApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.OmarTorres.ReputationApp;

@@ -42,8 +42,9 @@ struct HTTPHelper {
             request.addValue("application/json", forHTTPHeaderField: "Accept")
         case .HTTPMultipartContent:
             let contentType = "multipart/form-data; boundary=\(requestBoundary)"
-            request.addValue(contentType, forHTTPHeaderField: "Accept")
+            request.addValue(contentType, forHTTPHeaderField: "Content-Type")
         }
+        
         
         // 3. Set the correct Authorization header.
         switch authType {
@@ -58,7 +59,7 @@ struct HTTPHelper {
             // Retreieve Auth_Token from Keychain
             if let userToken = KeychainAccess.passwordForAccount(account: "Auth_Token", service: "KeyChainService") as String? {
                 // Set Authorization header
-                request.addValue("Token token=\(userToken)", forHTTPHeaderField: "Authorization")
+                request.addValue("Token \(userToken)", forHTTPHeaderField: "Authorization")
             }
         }
         
