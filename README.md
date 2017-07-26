@@ -1,6 +1,6 @@
 # HumansiOSRails
 
-Client side application for [Humans API](https://github.com/omartorresrios/Reputation) built with Swift.
+Client side application for [Humans API](https://github.com/omartorresrios/HumansAPI) built with Swift.
 
 ## Contribution
 
