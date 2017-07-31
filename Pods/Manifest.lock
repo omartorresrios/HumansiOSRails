@@ -1,0 +1,18 @@
+PODS:
+  - Alamofire (4.5.0)
+  - JDStatusBarNotification (1.5.5)
+  - Locksmith (3.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.4)
+  - JDStatusBarNotification
+  - Locksmith
+
+SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  JDStatusBarNotification: 2b4f29bd68a60d7aa2f190b5265f1ce59c18aaf8
+  Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
+
+PODFILE CHECKSUM: 886301d3922ccc888fd37a90152cf96c2fa6ae7f
+
+COCOAPODS: 1.2.1
