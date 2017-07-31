@@ -7,20 +7,50 @@
 //
 
 import UIKit
+import JDStatusBarNotification
+
+let reachability = Reachability()
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    
+    var reachability = Reachability()!
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow()
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+        do {
+            try reachability.startNotifier()
+        } catch{
+            print("could not start reachability notifier")
+        }
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        window = UIWindow()
         window?.rootViewController = MainTabBarController()
         
         return true
+    }
+    
+    func reachabilityChanged(note: NSNotification) {
+        
+        reachability = note.object as! Reachability
+        
+        if reachability.isReachable {
+            if reachability.isReachableViaWiFi {
+                print("Reachable via WiFi")
+            } else {
+                print("Reachable via Cellular")
+            }
+        } else {
+            print("Network not reachable")
+            JDStatusBarNotification.show(withStatus: "Revisa tu conexión e intenta de nuevo", dismissAfter: 3.0, styleName: JDStatusBarStyleDark)
+        }
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

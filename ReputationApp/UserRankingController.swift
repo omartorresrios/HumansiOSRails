@@ -9,13 +9,37 @@
 import UIKit
 import Locksmith
 
+extension UIApplication {
+    var statusBarView: UIView? {
+        return value(forKey: "statusBar") as? UIView
+    }
+}
+
 class UserRankingController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.backgroundColor = .red
         
+        navigationController?.navigationBar.barTintColor = UIColor.mainGreen()
+        
+        self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
+        
+        collectionView?.alwaysBounceVertical = false
+        collectionView?.keyboardDismissMode = .onDrag
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(handleLogout))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        UIApplication.shared.isStatusBarHidden = false
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        guard let font = UIFont(name: "SFUIDisplay-Medium", size: 18) else { return }
+        navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.white]
+        self.navigationItem.title = "Ranking de reputación"
     }
     
     func handleLogout() {
@@ -41,5 +65,6 @@ class UserRankingController: UICollectionViewController {
     func clearAPITokensFromKeyChain() {
         // clear API Auth Token
         try! Locksmith.deleteDataForUserAccount(userAccount: "AuthToken")
+        try! Locksmith.deleteDataForUserAccount(userAccount: "currentUserId")
     }
 }

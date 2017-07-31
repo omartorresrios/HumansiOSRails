@@ -60,7 +60,7 @@ class AuthService {
     }
     
     // Signup user
-    func makeSignUpRequest(_ fullName: String, userName:String, userEmail:String, userAvatar: String, userPassword:String, completion: @escaping callback) {
+    func makeSignUpRequest(_ fullName: String, userName:String, userEmail:String, userAvatar: String, userPassword:String, completion: @escaping _Callback) {
         
         guard let URL = URL(string: "https://protected-anchorage-18127.herokuapp.com/api/users/signup") else {
             completion(false)
@@ -235,7 +235,7 @@ class AuthService {
     }
     
     
-    func makeSignInRequest(_ userEmail: String, userPassword:String, completion: @escaping callback) {
+    func makeSignInRequest(_ userEmail: String, userPassword:String, completion: @escaping _Callback) {
         
         // Create HTTP request and set request Body
         let httpRequest = httpHelper.buildRequest(path: "users/signin", method: "POST", authType: HTTPRequestAuthType.HTTPBasicAuth)

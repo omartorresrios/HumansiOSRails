@@ -8,10 +8,16 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        UIApplication.shared.isStatusBarHidden = false
+        
+        tabBar.isHidden = true
+        
+        self.delegate = self
         
         let defaults = UserDefaults.standard
         
@@ -24,18 +30,17 @@ class MainTabBarController: UITabBarController {
             }
         }
         
-        
-        
-        
-        setupViewControllers()
+        setupViewControllers { (success) in
+            print("setup success")
+        }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        tabBar.isHidden = false
+    }
     
-    
-    
-    
-    
-    func setupViewControllers() {
+    func setupViewControllers(completion: @escaping _Callback) {
         
         //search
         let searchNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: UserSearchController(collectionViewLayout: UICollectionViewFlowLayout()))
@@ -49,9 +54,11 @@ class MainTabBarController: UITabBarController {
         userRankingNavController.tabBarItem.image = #imageLiteral(resourceName: "ranking_unselected")
         userRankingNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "ranking_selected")
         
-        tabBar.tintColor = .black
+        tabBar.tintColor = UIColor.mainBlue()
         
         viewControllers = [userRankingNavController, searchNavController]
+        
+        completion(true)
         
         //modify tab bar item insets
         guard let items = tabBar.items else { return }
@@ -68,5 +75,4 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.selectedImage = selectedImage
         return navController
     }
-    
 }

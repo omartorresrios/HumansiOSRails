@@ -11,6 +11,19 @@
 	<string>We&apos;d like access to your photos right now</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We would like to access to your camera to take photos</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SF-UI-Display-Bold.otf</string>
+		<string>SF-UI-Display-Light.otf</string>
+		<string>SF-UI-Display-Medium.otf</string>
+		<string>SF-UI-Display-Regular.otf</string>
+		<string>SF-UI-Display-Thin.otf</string>
+		<string>SF-UI-Display-Semibold.otf</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

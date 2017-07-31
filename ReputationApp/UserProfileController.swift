@@ -7,83 +7,361 @@
 //
 
 import UIKit
+import Alamofire
+import Locksmith
 
-class UserProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class UserProfileController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    let cellId = "cellId"
+    let homeReviewCellId = "homeReviewCellId"
+    var reviews = [Review]()
     
-    var userUsername: String?
     
-    let plusPhotoButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.addTarget(self, action: #selector(handlePlusPhoto), for: .touchUpInside)
-        return button
+    var userId: Int?
+    var userFullname: String?
+    var userImageUrl: String?
+    var currentUserDic = [String: Any]()
+    
+    var user: User? {
+        didSet {
+            user?.fullname = userFullname!
+            user?.profileImageUrl = userImageUrl!
+            user?.id = userId!
+            print("user initial: \(user?.fullname)")
+        }
+    }
+    
+    let loader: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        indicator.alpha = 1.0
+        indicator.center = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 270) // 250 is the header height + 20
+        indicator.startAnimating()
+        return indicator
     }()
     
-    func handlePlusPhoto() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
-        
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
-            plusPhotoButton.setImage(editedImage.withRenderingMode(.alwaysOriginal), for: .normal)
-        } else if let originalImage =
-            info["UIImagePickerControllerOriginalImage"] as? UIImage {
-            plusPhotoButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
-        }
-        
-        plusPhotoButton.layer.cornerRadius = plusPhotoButton.frame.width/2
-        plusPhotoButton.layer.masksToBounds = true
-        plusPhotoButton.layer.borderColor = UIColor.black.cgColor
-        plusPhotoButton.layer.borderWidth = 3
-        
-        
-        let captureImage = plusPhotoButton.currentImage
-        if let imageData = UIImagePNGRepresentation(captureImage!) {
-            let encodedImageData = imageData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
-            var request = URLRequest(url: URL(string: "https://protected-anchorage-18127.herokuapp.com/api/avatar")!)
-            request.httpMethod = "PATCH"
-            
-            let postString = "avatar=\(encodedImageData)"
-            request.httpBody = postString.data(using: .utf8)
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {
-                    print("error=\(error)")
-                    return
-                }
-                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                    print("response = \(response)")
-                }
-                let responseString = String(data: data, encoding: .utf8)
-                print("responseString = \(responseString)")
-            }
-            task.resume()
-        }
-        
-        
-        dismiss(animated: true, completion: nil)
-    }
+    let messageLabel: UILabel = {
+        let ml = UILabel()
+        ml.font = UIFont.systemFont(ofSize: 12)
+        ml.numberOfLines = 0
+        ml.textAlignment = .center
+        ml.isHidden = true
+        return ml
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("user initial: \(userFullname)")
+        // General properties of the view
+        let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.sectionHeadersPinToVisibleBounds = true
         
-        view.addSubview(plusPhotoButton)
-        plusPhotoButton.anchor(top: view.centerYAnchor, left: view.centerXAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 80, height: 80)
-        plusPhotoButton.layer.cornerRadius = 80 / 2
-        plusPhotoButton.clipsToBounds = true
+        collectionView?.contentInset.bottom = 20
         
-        collectionView?.backgroundColor = .white
-//        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
+        navigationController?.isNavigationBarHidden = true
         
-        self.navigationItem.title = userUsername
+        let lightView = UIView()
+        lightView.backgroundColor = .white
+        collectionView?.backgroundView = lightView
         
+        // Other configurations
+        collectionView?.register(UserProfileHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerId")
+        collectionView?.register(HomeReviewCell.self, forCellWithReuseIdentifier: homeReviewCellId)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showPreviousCV), name: NSNotification.Name(rawValue: "GoToSearchFromProfile"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showWriteCV), name: NSNotification.Name(rawValue: "GoToWriteCV"), object: nil)
+        
+        // Initialize functions
+        subviewsAnchors()
+//        checkIfReviewsExists()
+//        fetchUser()
+        fetchOrderedReviews()
+        
+        // Reachability for checking internet connection
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
+        
+        //        setupLogOutButton()
+        
+    }
+    
+    //    override func viewDidAppear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        self.view.isUserInteractionEnabled = true
+    //    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        UIApplication.shared.isStatusBarHidden = true
+        navigationController?.tabBarController?.tabBar.isHidden = true
+    }
+    
+    func reachabilityStatusChanged() {
+        print("Checking connectivity...")
+    }
+    
+    func subviewsAnchors() {
+        view.addSubview(loader)
+        view.addSubview(messageLabel)
+        
+        messageLabel.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 263 , paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0) //263 -> 243 is the header height, plus 20
+    }
+    
+    func showWriteCV() {
+        let layout = UICollectionViewFlowLayout()
+        let writeReviewController = WriteReviewController(collectionViewLayout: layout)
+        
+        writeReviewController.userReceiverId = "\(userId)"
+        writeReviewController.userReceiverFullname = userFullname
+        writeReviewController.userReceiverImageUrl = userImageUrl
+        
+        let navController = UINavigationController(rootViewController: writeReviewController)
+        present(navController, animated: true, completion: nil)
+    }
+    
+    func showPreviousCV() {
+        _ = navigationController?.popViewController(animated: true)
+        navigationController?.isNavigationBarHidden = false
+    }
+    
+    func setupMessageLabel() {
+        guard let nameFont = UIFont(name: "SFUIDisplay-Semibold", size: 14) else { return }
+        guard let messageFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
+        
+        guard let userName = self.userFullname else { return }
+        let attributedText = NSMutableAttributedString(string: userName, attributes: [NSFontAttributeName: nameFont])
+        
+        attributedText.append(NSAttributedString(string: " todavía no tiene reseñas 😮.\n ¡Déjale una! ", attributes: [NSFontAttributeName: messageFont]))
+        
+        self.messageLabel.attributedText = attributedText
+    }
+    
+//    fileprivate func checkIfReviewsExists() {
+//        Database.database().reference().child("users").child(userId!).child("reviewsCount").observe(.value, with: { (snapshot) in
+//            let value = snapshot.value as! Int
+//            if value == 0 {
+//                print("No hay reviews")
+//                self.messageLabel.isHidden = false
+//                self.loader.stopAnimating()
+//                self.setupMessageLabel()
+//                
+//            } else {
+//                print("Sí hay reviews")
+//            }
+//        }) { (err) in
+//            print("Failed to check if reviews exists for the user:", err)
+//        }
+//        
+//    }
+    
+    fileprivate func fetchOrderedReviews() {
+        
+        
+        // Check for internet connection
+        if (reachability?.isReachable)! {
+            
+            // Retreieve Auth_Token from Keychain
+            if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
+                
+                let authToken = userToken["authenticationToken"] as! String
+                
+                print("Token 2: \(userToken)")
+                
+                // Set Authorization header
+                let header = ["Authorization": "Token token=\(authToken)"]
+                
+                print("THE HEADER 2: \(header)")
+                
+                let urlConcatenaited = "https://protected-anchorage-18127.herokuapp.com/api/"+userFullname!+"/reviews"
+                
+                Alamofire.request(urlConcatenaited, method: .get, parameters: nil, encoding: URLEncoding.default, headers: header).responseJSON { (response) in
+                    switch response.result {
+                    case .success(let JSON):
+                        print("THE REVIEW JSON: \(JSON)")
+                        
+                        let jsonArray = JSON as! NSDictionary
+
+                        let reviews = jsonArray["reviews"] as! NSArray
+                        
+                        if reviews.count == 0 {
+                            print("No hay reviews")
+                            self.messageLabel.isHidden = false
+                            self.loader.stopAnimating()
+                            self.setupMessageLabel()
+                        }
+                        
+                        reviews.forEach({ (value) in
+                            guard let reviewDictionary = value as? [String: Any] else { return }
+                            print("this is reviewDictionary: \(reviewDictionary)")
+                            
+//                            guard let user = self.user else { return }
+                            
+                            let review = Review(dictionary: reviewDictionary)
+                            self.reviews.insert(review, at: 0)
+                
+                            self.collectionView?.reloadData()
+                            
+                            self.loader.stopAnimating()
+                            
+                        })
+//
+//                        self.users.sort(by: { (u1, u2) -> Bool in
+//                            
+//                            return u1.fullname.compare(u2.fullname) == .orderedAscending
+//                            
+//                        })
+//                        
+//                        self.filteredUsers = self.users
+//                        self.collectionView?.reloadData()
+//                        self.loader.stopAnimating()
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
+        } else {
+            self.loader.stopAnimating()
+            
+            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+        
+        
+        
+        
+//        guard let id = self.user?.id else { return }
+//        let ref = Database.database().reference().child("reviews").child(uid)
+//        
+//        //perhaps later on we'll implement some pagination of data
+//        ref.queryOrdered(byChild: "creationDate").observe(.childAdded, with: { (snapshot) in
+//            guard let dictionary = snapshot.value as? [String: Any] else { return }
+//            
+//            guard let user = self.user else { return }
+//            
+//            let review = Review(user: user, dictionary: dictionary)
+//            
+//            self.reviews.insert(review, at: 0)
+//            
+//            self.collectionView?.reloadData()
+//            
+//            self.loader.stopAnimating()
+//            
+//        }) { (err) in
+//            print("Failed to fetch ordered reviews:", err)
+//        }
+    }
+    
+//    func fetchUserWithUID(id: Int, completion: @escaping (User) -> ()) {
+//        
+//        let user = User(dictionary: currentUserDic)
+//        
+//        completion(user)
+//            
+//        
+//    }
+//    
+//    fileprivate func fetchUser() {
+//        
+//        // Check for internet connection
+//        if (reachability?.isReachable)! {
+//            
+//            let id = userId
+//            
+//            fetchUserWithUID(id: id!) { (user) in
+//                self.user = user
+////                self.navigationItem.title = self.user?.fullname
+//                self.collectionView?.reloadData()
+//                
+//                self.fetchOrderedReviews()
+//            }
+//        } else {
+//            self.loader.stopAnimating()
+//            
+//            let alert = UIAlertController(title: "Error", message: "Tu conexión a internet está fallando. 🤔 Intenta de nuevo.", preferredStyle: UIAlertControllerStyle.alert)
+//            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//    }
+    
+    func showArrow() {
+        let sheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        sheetController.addAction(UIAlertAction(title: "Reportar", style: .destructive, handler: { (_) in
+            let alert = UIAlertController(title: "", message: "Revisaremos tu reporte. 🤔", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "¡Gracias!", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }))
+        
+        sheetController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        
+        present(sheetController, animated: true, completion: nil)
+    }
+    
+    func blockUser() {
+        let sheetController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        sheetController.addAction(UIAlertAction(title: "Bloquear usuario", style: .destructive, handler: { (_) in
+            let alert = UIAlertController(title: "", message: "Bloqueaste a \(self.userFullname!)", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }))
+        
+        sheetController.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        
+        present(sheetController, animated: true, completion: nil)
+    }
+    
+    //    fileprivate func setupLogOutButton() {
+    //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleLogOut))
+    //    }
+    
+    //    func handleLogOut() {
+    //        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    //
+    //        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+    //
+    //            do {
+    //                try FIRAuth.auth()?.signOut()
+    //
+    //                //what happens? we need to present some kind of login controller
+    //                let loginController = LoginController()
+    //                let navController = UINavigationController(rootViewController: loginController)
+    //                self.present(navController, animated: true, completion: nil)
+    //
+    //            } catch let signOutErr {
+    //                print("Failed to sign out:", signOutErr)
+    //            }
+    //
+    //        }))
+    //
+    //        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+    //
+    //        present(alertController, animated: true, completion: nil)
+    //    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if reviews.count > 0 {
+            self.messageLabel.isHidden = true
+        }
+        return reviews.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: homeReviewCellId, for: indexPath) as! HomeReviewCell
+        cell.review = reviews[indexPath.item]
+        cell.backgroundColor = .white
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showArrow))
+        cell.arrowView.isUserInteractionEnabled = true
+        cell.arrowView.addGestureRecognizer(tap)
+        
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -91,21 +369,43 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 20
     }
     
-//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
-//        
-//        header.user = self.user
-//       
-//        return header
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        let dummyCell = HomeReviewCell(frame: frame)
+        dummyCell.review = reviews[indexPath.item]
+        dummyCell.layoutIfNeeded()
+        
+        let targetSize = CGSize(width: view.frame.width, height: 1000)
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(targetSize)
+        
+        let height = max(40 + 8 + 8, estimatedSize.height)
+        return CGSize(width: view.frame.width, height: height)
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
+        header.backgroundColor = UIColor.white
+        print("user header: \(self.user)")
+        header.fullnameLabel.text = userFullname
+        
+        if let profileImageUrl = userImageUrl {
+            header.profileImageView.loadImage(urlString: profileImageUrl)
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(blockUser))
+        header.arrowView.isUserInteractionEnabled = true
+        header.arrowView.addGestureRecognizer(tap)
+        
+        return header
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+        
+        return CGSize(width: view.frame.width, height: 246/*248*/) //231 real height  ||  +12 for bottom space
     }
-    
-    var user: User?
 }
-

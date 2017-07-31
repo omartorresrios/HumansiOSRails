@@ -12,10 +12,6 @@ let API_AUTH_NAME = "<YOUR_HEROKU_API_ADMIN_NAME>"
 let API_AUTH_PASSWORD = "<YOUR_HEROKU_API_PASSWORD>"
 let BASE_URL = "https://protected-anchorage-18127.herokuapp.com/api"
 
-// Callbacks
-// Typealias for callbacks used in Data Service
-typealias callback = (_ success: Bool) -> ()
-
 // Boolean auth UserDefaults keys
 let DEFAULTS_REGISTERED = "isRegistered"
 let DEFAULTS_AUTHENTICATED = "isAuthenticated"

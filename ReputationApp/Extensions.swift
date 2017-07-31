@@ -8,6 +8,10 @@
 
 import UIKit
 
+// Callbacks
+// Typealias for callbacks used
+typealias _Callback = (_ success: Bool) -> ()
+
 extension UIColor {
     
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
@@ -15,7 +19,11 @@ extension UIColor {
     }
     
     static func mainBlue() -> UIColor {
-        return UIColor.rgb(red: 17, green: 154, blue: 237)
+        return UIColor.rgb(red: 29, green: 161, blue: 242)
+    }
+    
+    static func mainGreen() -> UIColor {
+        return UIColor.rgb(red: 104, green: 237, blue: 198)
     }
     
 }
