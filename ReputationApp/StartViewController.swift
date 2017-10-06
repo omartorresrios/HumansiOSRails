@@ -66,6 +66,13 @@ class StartViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func photoLibraryClicked(_ sender: UIButton) {
         toggleButton(button: sender, onImage: #imageLiteral(resourceName: "photoLibraryOn"), offImage: #imageLiteral(resourceName: "photoLibraryOff"))
+        
+        let layout = UICollectionViewFlowLayout()
+        let photoLibraryView = PhotoLibraryViewController(collectionViewLayout: layout)
+        let navController = UINavigationController(rootViewController: photoLibraryView)
+        
+        present(navController, animated: true, completion: nil)
+        
     }
     
     @IBAction func textClicked(_ sender: UIButton) {

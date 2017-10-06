@@ -16,16 +16,5 @@ class FeedViewController: UIViewController {
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
-    
-    @IBAction func goToStartView(_ sender: Any) {
-        
-        let controller = storyboard?.instantiateViewController(withIdentifier: "StartView")
-        self.present(controller!, animated: true, completion: nil)
-        
-    }
 
 }
