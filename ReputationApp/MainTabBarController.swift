@@ -56,7 +56,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         tabBar.tintColor = UIColor.mainBlue()
         
-        viewControllers = [userRankingNavController, searchNavController]
+        viewControllers = [searchNavController, userRankingNavController]
         
         completion(true)
         
@@ -66,6 +66,30 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         for item in items {
             item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
         }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if tabBarController.selectedIndex == 0 {
+            
+            let desiredStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let desiredViewController = desiredStoryboard.instantiateViewController(withIdentifier: "StartView")
+            
+            present(desiredViewController, animated: true, completion: nil)
+            
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            
+//            let controller = storyboard.instantiateViewController(withIdentifier: "StartView")
+//            
+//            controller.modalPresentationStyle = .fullScreen
+//            self.present(controller, animated: true, completion: nil)
+//            
+//            
+            return false
+        }
+        
+        // Tells the tab bar to select other view controller as normal
+        return true
+
     }
     
     fileprivate func templateNavController(unselectedImage: UIImage, selectedImage: UIImage, rootViewController: UIViewController = UIViewController()) -> UINavigationController {

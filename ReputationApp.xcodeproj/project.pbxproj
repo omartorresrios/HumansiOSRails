@@ -31,6 +31,15 @@
 		A07B95901F2E9062008E9EA0 /* HomeReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B958F1F2E9062008E9EA0 /* HomeReviewCell.swift */; };
 		A07B95921F2E90B5008E9EA0 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B95911F2E90B5008E9EA0 /* Review.swift */; };
 		A07B95951F2EA0D6008E9EA0 /* WriteReviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B95941F2EA0D6008E9EA0 /* WriteReviewController.swift */; };
+		A09EEB661F84649E009836DC /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB651F84649E009836DC /* StartViewController.swift */; };
+		A09EEB6B1F867C1C009836DC /* VideoPhotoContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB6A1F867C1C009836DC /* VideoPhotoContentViewController.swift */; };
+		A09EEB6E1F867C3F009836DC /* TextContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB6D1F867C3F009836DC /* TextContentViewController.swift */; };
+		A09EEB721F869BF2009836DC /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB711F869BF2009836DC /* SegueFromLeft.swift */; };
+		A09EEB7D1F86BA09009836DC /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB7C1F86BA09009836DC /* FeedViewController.swift */; };
+		A09EEB7F1F86BA29009836DC /* photoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB7E1F86BA29009836DC /* photoLibraryViewController.swift */; };
+		A09EEB811F86CABF009836DC /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB801F86CABF009836DC /* SegueFromRight.swift */; };
+		A09EEB831F86D88C009836DC /* SegueFromTop.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB821F86D88C009836DC /* SegueFromTop.swift */; };
+		A09EEB851F8729D1009836DC /* SegueFromBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09EEB841F8729D1009836DC /* SegueFromBottom.swift */; };
 		A0EF64111EC40757006609F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64101EC40757006609F7 /* AppDelegate.swift */; };
 		A0EF64161EC40757006609F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF64141EC40757006609F7 /* Main.storyboard */; };
 		A0EF64181EC40758006609F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0EF64171EC40758006609F7 /* Assets.xcassets */; };
@@ -74,6 +83,15 @@
 		A07B958F1F2E9062008E9EA0 /* HomeReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeReviewCell.swift; sourceTree = "<group>"; };
 		A07B95911F2E90B5008E9EA0 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		A07B95941F2EA0D6008E9EA0 /* WriteReviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WriteReviewController.swift; sourceTree = "<group>"; };
+		A09EEB651F84649E009836DC /* StartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		A09EEB6A1F867C1C009836DC /* VideoPhotoContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPhotoContentViewController.swift; sourceTree = "<group>"; };
+		A09EEB6D1F867C3F009836DC /* TextContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextContentViewController.swift; sourceTree = "<group>"; };
+		A09EEB711F869BF2009836DC /* SegueFromLeft.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
+		A09EEB7C1F86BA09009836DC /* FeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		A09EEB7E1F86BA29009836DC /* photoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = photoLibraryViewController.swift; sourceTree = "<group>"; };
+		A09EEB801F86CABF009836DC /* SegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
+		A09EEB821F86D88C009836DC /* SegueFromTop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromTop.swift; sourceTree = "<group>"; };
+		A09EEB841F8729D1009836DC /* SegueFromBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueFromBottom.swift; sourceTree = "<group>"; };
 		A0EF640D1EC40757006609F7 /* ReputationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReputationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0EF64101EC40757006609F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ReputationApp/AppDelegate.swift; sourceTree = "<group>"; };
 		A0EF64151EC40757006609F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -193,6 +211,31 @@
 			name = Ranking;
 			sourceTree = "<group>";
 		};
+		A09EEB641F84646F009836DC /* StartView */ = {
+			isa = PBXGroup;
+			children = (
+				A09EEB651F84649E009836DC /* StartViewController.swift */,
+				A0EF64141EC40757006609F7 /* Main.storyboard */,
+			);
+			name = StartView;
+			sourceTree = "<group>";
+		};
+		A09EEB691F867BFF009836DC /* VideoPhotoContent */ = {
+			isa = PBXGroup;
+			children = (
+				A09EEB6A1F867C1C009836DC /* VideoPhotoContentViewController.swift */,
+			);
+			name = VideoPhotoContent;
+			sourceTree = "<group>";
+		};
+		A09EEB6C1F867C2D009836DC /* TextContent */ = {
+			isa = PBXGroup;
+			children = (
+				A09EEB6D1F867C3F009836DC /* TextContentViewController.swift */,
+			);
+			name = TextContent;
+			sourceTree = "<group>";
+		};
 		A0EF64041EC40757006609F7 = {
 			isa = PBXGroup;
 			children = (
@@ -200,7 +243,6 @@
 				A0EF640F1EC40757006609F7 /* ReputationApp */,
 				A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */,
 				A0EF64101EC40757006609F7 /* AppDelegate.swift */,
-				A0EF64141EC40757006609F7 /* Main.storyboard */,
 				A0EF64191EC40758006609F7 /* LaunchScreen.storyboard */,
 				A0EF64171EC40758006609F7 /* Assets.xcassets */,
 				A0EF640E1EC40757006609F7 /* Products */,
@@ -220,6 +262,9 @@
 		A0EF640F1EC40757006609F7 /* ReputationApp */ = {
 			isa = PBXGroup;
 			children = (
+				A09EEB6C1F867C2D009836DC /* TextContent */,
+				A09EEB691F867BFF009836DC /* VideoPhotoContent */,
+				A09EEB641F84646F009836DC /* StartView */,
 				A07B95931F2EA0C5008E9EA0 /* WriteReview */,
 				A07B958A1F2E49FE008E9EA0 /* AddPeople */,
 				A07B957A1F2693CE008E9EA0 /* ReputationApp.entitlements */,
@@ -232,6 +277,12 @@
 				A0F36A391ECA154F0072B5DD /* AESCrypt */,
 				A07B957D1F2D9F7B008E9EA0 /* Utils */,
 				A0EF64251EC40839006609F7 /* Supporting files */,
+				A09EEB711F869BF2009836DC /* SegueFromLeft.swift */,
+				A09EEB7C1F86BA09009836DC /* FeedViewController.swift */,
+				A09EEB7E1F86BA29009836DC /* photoLibraryViewController.swift */,
+				A09EEB801F86CABF009836DC /* SegueFromRight.swift */,
+				A09EEB821F86D88C009836DC /* SegueFromTop.swift */,
+				A09EEB841F8729D1009836DC /* SegueFromBottom.swift */,
 			);
 			path = ReputationApp;
 			sourceTree = "<group>";
@@ -421,13 +472,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A09EEB811F86CABF009836DC /* SegueFromRight.swift in Sources */,
 				A07B3BD41ED8C98600F10657 /* CustomImageView.swift in Sources */,
+				A09EEB661F84649E009836DC /* StartViewController.swift in Sources */,
 				A0F36A451ECA154F0072B5DD /* NSString+Base64.m in Sources */,
 				A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */,
 				A07B3C391ED91DF000F10657 /* UserRankingController.swift in Sources */,
 				A07B3C3E1EDB82FD00F10657 /* UserSearchCell.swift in Sources */,
+				A09EEB721F869BF2009836DC /* SegueFromLeft.swift in Sources */,
 				A07B95901F2E9062008E9EA0 /* HomeReviewCell.swift in Sources */,
 				A0EF64291EC40905006609F7 /* KeyChainAccess.swift in Sources */,
+				A09EEB7F1F86BA29009836DC /* photoLibraryViewController.swift in Sources */,
+				A09EEB7D1F86BA09009836DC /* FeedViewController.swift in Sources */,
+				A09EEB831F86D88C009836DC /* SegueFromTop.swift in Sources */,
+				A09EEB6B1F867C1C009836DC /* VideoPhotoContentViewController.swift in Sources */,
 				A0EF642B1EC40946006609F7 /* HTTPHelper.swift in Sources */,
 				A07B3BC41ED780B100F10657 /* AuthService.swift in Sources */,
 				A07B3C421EDB846D00F10657 /* User.swift in Sources */,
@@ -436,6 +494,8 @@
 				A0EF64241EC407D7006609F7 /* LoginController.swift in Sources */,
 				A07B958C1F2E4A34008E9EA0 /* AddPeopleController.swift in Sources */,
 				A07B3C401EDB83EE00F10657 /* UserProfileController.swift in Sources */,
+				A09EEB851F8729D1009836DC /* SegueFromBottom.swift in Sources */,
+				A09EEB6E1F867C3F009836DC /* TextContentViewController.swift in Sources */,
 				A07B958E1F2E84CE008E9EA0 /* Reachability.swift in Sources */,
 				A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */,
 				A07B3BD91ED8DA5200F10657 /* MainTabBarController.swift in Sources */,
@@ -460,7 +520,6 @@
 				A0EF64151EC40757006609F7 /* Base */,
 			);
 			name = Main.storyboard;
-			path = ReputationApp;
 			sourceTree = "<group>";
 		};
 		A0EF64191EC40758006609F7 /* LaunchScreen.storyboard */ = {

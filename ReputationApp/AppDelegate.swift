@@ -28,8 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.statusBarStyle = .lightContent
         
-        window = UIWindow()
-        window?.rootViewController = MainTabBarController()
+//        window = UIWindow()
+//        window?.rootViewController = StartViewController()
+        
+        let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StartView")
+        self.window?.rootViewController = homeVC
         
         return true
     }
