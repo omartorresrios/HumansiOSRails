@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import Locksmith
 
 class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -137,6 +138,17 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         defaults.synchronize()
     }
     
+    func saveApiTokenInKeychain(tokenString: String, idInt: Int) {
+        // save API AuthToken in Keychain
+        try! Locksmith.saveData(data: ["authenticationToken": tokenString], forUserAccount: "AuthToken")
+        try! Locksmith.saveData(data: ["id": idInt], forUserAccount: "currentUserId")
+        
+        print("AuthToken recién guardado: \(Locksmith.loadDataForUserAccount(userAccount: "AuthToken")!)")
+        print("currentUserId recién guardado: \(Locksmith.loadDataForUserAccount(userAccount: "currentUserId")!)")
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func handleSignUp() {
         guard let email = emailTextField.text, email.characters.count > 0 else { return }
         guard let username = usernameTextField.text, username.characters.count > 0 else { return }
@@ -172,7 +184,7 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
                 case .success(let upload, _, _):
                     
                     self.updateUserLoggedInFlag()
-                    self.dismiss(animated: true, completion: nil)
+//                    self.dismiss(animated: true, completion: nil)
                     print("THIS IS THE HEADER: \(headers)")
                     
                     upload.responseJSON { response in
@@ -181,8 +193,15 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
                         print("response data: \(response.data!)") // server data
                         print("result: \(response.result)") // result of response serialization
                         
-                        if let JSON = response.result.value {
+                        if let JSON = response.result.value as? NSDictionary {
+                            let userJSON = JSON["user"] as! NSDictionary
+                            let authToken = userJSON["authenticationToken"] as! String
+                            let userId = userJSON["id"] as! Int
+                            print("userJSON: \(userJSON)")
                             print("JSON: \(JSON)")
+                            self.saveApiTokenInKeychain(tokenString: authToken, idInt: userId)
+                            print("authToken: \(authToken)")
+                            print("userId: \(userId)")
                         }
                     }
                     
