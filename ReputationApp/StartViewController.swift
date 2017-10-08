@@ -82,6 +82,9 @@ class StartViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func videoPhotoClicked(_ sender: UIButton) {
         toggleButton(button: sender, onImage: #imageLiteral(resourceName: "videoPhotoOn"), offImage: #imageLiteral(resourceName: "videoPhotoOff"))
         
+        let videoPhotoContentViewController = VideoPhotoContentViewController()
+        present(videoPhotoContentViewController, animated: true, completion: nil)
+        
     }
     
     func toggleButton(button: UIButton, onImage: UIImage, offImage: UIImage) {

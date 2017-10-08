@@ -51,6 +51,9 @@
 		A0EF642B1EC40946006609F7 /* HTTPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF642A1EC40946006609F7 /* HTTPHelper.swift */; };
 		A0EF643A1EC40C0E006609F7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0EF64391EC40C0E006609F7 /* Security.framework */; };
 		A0F0B7561EDF1DD1005DBD4D /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F0B7551EDF1DD1005DBD4D /* UserProfileHeader.swift */; };
+		A0F254181F89C2FD00FC234A /* PreviewPhotoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F254171F89C2FD00FC234A /* PreviewPhotoContainerView.swift */; };
+		A0F2541F1F8A80B000FC234A /* CustomAnimationDismisser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F2541D1F8A80B000FC234A /* CustomAnimationDismisser.swift */; };
+		A0F254201F8A80B000FC234A /* CustomAnimationPresentor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F2541E1F8A80B000FC234A /* CustomAnimationPresentor.swift */; };
 		A0F36A421ECA154F0072B5DD /* AESCrypt.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */; };
 		A0F36A431ECA154F0072B5DD /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3D1ECA154F0072B5DD /* NSData+Base64.m */; };
 		A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F36A3F1ECA154F0072B5DD /* NSData+CommonCrypto.m */; };
@@ -108,6 +111,9 @@
 		A0EF64391EC40C0E006609F7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A0EF643D1EC420FC006609F7 /* Selfie-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Selfie-Bridging-Header.h"; sourceTree = "<group>"; };
 		A0F0B7551EDF1DD1005DBD4D /* UserProfileHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		A0F254171F89C2FD00FC234A /* PreviewPhotoContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewPhotoContainerView.swift; sourceTree = "<group>"; };
+		A0F2541D1F8A80B000FC234A /* CustomAnimationDismisser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimationDismisser.swift; sourceTree = "<group>"; };
+		A0F2541E1F8A80B000FC234A /* CustomAnimationPresentor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnimationPresentor.swift; sourceTree = "<group>"; };
 		A0F36A3A1ECA154F0072B5DD /* AESCrypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCrypt.h; sourceTree = "<group>"; };
 		A0F36A3B1ECA154F0072B5DD /* AESCrypt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCrypt.m; sourceTree = "<group>"; };
 		A0F36A3C1ECA154F0072B5DD /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -289,6 +295,9 @@
 				A09EEB841F8729D1009836DC /* SegueFromBottom.swift */,
 				A09EEB881F8825FD009836DC /* PhotoLibraryContentCell.swift */,
 				A09EEB8A1F882CE9009836DC /* PhotoLibraryContentHeader.swift */,
+				A0F254171F89C2FD00FC234A /* PreviewPhotoContainerView.swift */,
+				A0F2541D1F8A80B000FC234A /* CustomAnimationDismisser.swift */,
+				A0F2541E1F8A80B000FC234A /* CustomAnimationPresentor.swift */,
 			);
 			path = ReputationApp;
 			sourceTree = "<group>";
@@ -483,7 +492,9 @@
 				A09EEB661F84649E009836DC /* StartViewController.swift in Sources */,
 				A0F36A451ECA154F0072B5DD /* NSString+Base64.m in Sources */,
 				A0F36A441ECA154F0072B5DD /* NSData+CommonCrypto.m in Sources */,
+				A0F254181F89C2FD00FC234A /* PreviewPhotoContainerView.swift in Sources */,
 				A07B3C391ED91DF000F10657 /* UserRankingController.swift in Sources */,
+				A0F2541F1F8A80B000FC234A /* CustomAnimationDismisser.swift in Sources */,
 				A07B3C3E1EDB82FD00F10657 /* UserSearchCell.swift in Sources */,
 				A09EEB721F869BF2009836DC /* SegueFromLeft.swift in Sources */,
 				A07B95901F2E9062008E9EA0 /* HomeReviewCell.swift in Sources */,
@@ -506,6 +517,7 @@
 				A07B958E1F2E84CE008E9EA0 /* Reachability.swift in Sources */,
 				A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */,
 				A07B3BD91ED8DA5200F10657 /* MainTabBarController.swift in Sources */,
+				A0F254201F8A80B000FC234A /* CustomAnimationPresentor.swift in Sources */,
 				A09EEB891F8825FD009836DC /* PhotoLibraryContentCell.swift in Sources */,
 				A07B3BCC1ED8C66000F10657 /* Extensions.swift in Sources */,
 				A0F0B7561EDF1DD1005DBD4D /* UserProfileHeader.swift in Sources */,
