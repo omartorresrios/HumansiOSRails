@@ -42,6 +42,11 @@ class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDe
     let customAnimationPresenter = CustomAnimationPresentor()
     let customAnimationDismisser = CustomAnimationDismisser()
     
+    // Which camera input do we want tou use
+    var backFacingCamera: AVCaptureDevice?
+    var frontFacingCamera: AVCaptureDevice?
+    var currentDevice: AVCaptureDevice?
+    
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return customAnimationPresenter
     }
@@ -88,12 +93,24 @@ class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDe
     }
     
     let output = AVCapturePhotoOutput()
-
+    let captureSession = AVCaptureSession()
+    
     func setupCaptureSession() {
-        let captureSession = AVCaptureSession()
         
         //1. Setup inputs
-        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        var captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        
+        let devices = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! [AVCaptureDevice]
+        
+        for device in devices {
+            if device.position == .back {
+                backFacingCamera = device
+            } else if device.position == .front {
+                frontFacingCamera = device
+            }
+        }
+        
+        captureDevice = backFacingCamera
         
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice)
@@ -117,7 +134,45 @@ class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDe
         view.layer.addSublayer(previewLayer)
         
         captureSession.startRunning()
+        
+        // Switching between cameras (front and back)
+        let toggleCameraGestureRecognizer = UITapGestureRecognizer()
+        toggleCameraGestureRecognizer.numberOfTapsRequired = 2
+        toggleCameraGestureRecognizer.addTarget(self, action: #selector(toggleCamera))
+        
+        view.addGestureRecognizer(toggleCameraGestureRecognizer)
+        
+    }
+    
+    func toggleCamera() {
+        captureSession.beginConfiguration()
+        
+        let newDevice = (currentDevice?.position == .back) ? frontFacingCamera : backFacingCamera
+        
+        for input in captureSession.inputs {
+            captureSession.removeInput(input as! AVCaptureDeviceInput)
+        }
+        
+        let cameraInput: AVCaptureDeviceInput
+        
+        do {
+            cameraInput = try AVCaptureDeviceInput(device: newDevice    )
+        } catch let error {
+            print(error)
+            return
+        }
+        
+        if captureSession.canAddInput(cameraInput) {
+            captureSession.addInput(cameraInput)
+        }
+        
+        currentDevice = newDevice
+        captureSession.commitConfiguration()
     }
     
 
+    func applicationDocumentsDirectory() -> NSURL {
+        return FileManager.defaultManager.URLsForDirectory(FileManager.SearchPathDirectory.documentDirectory, inDomains: FileManager.SearchPathDomainMask.UserDomainMask).last
+    }
+    
 }
