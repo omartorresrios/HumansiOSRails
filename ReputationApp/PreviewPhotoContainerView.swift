@@ -32,21 +32,23 @@ class PreviewPhotoContainerView: UIView {
         return button
     }()
     
-    let sendButton: UIButton = {
+    let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Send", for: .normal)
-        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        button.setTitle("Next", for: .normal)
+        button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
     
     let photoCaption: UITextView = {
         let tv = UITextView()
+        tv.layer.cornerRadius = 4
         return tv
     }()
     
-    let shareButton: UIButton = {
+    let sendButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .yellow
+        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         return button
     }()
     
@@ -54,78 +56,32 @@ class PreviewPhotoContainerView: UIView {
         
         guard let previewImage = previewImageView.image else { return }
         
-        let library = PHPhotoLibrary.shared()
-        
-        library.performChanges({ 
-            PHAssetChangeRequest.creationRequestForAsset(from: previewImage)
-        }) { (success, err) in
-            if let err = err {
-                print("Failed to save image to photo library: ", err)
-            }
-            print("Successfully saved image to library")
-            
-            DispatchQueue.main.async {
-                let savedLabel = UILabel()
-                savedLabel.text = "Saved successfully"
-                savedLabel.font = UIFont.boldSystemFont(ofSize: 18)
-                savedLabel.textColor = .white
-                savedLabel.numberOfLines = 0
-                savedLabel.backgroundColor = UIColor(white: 0, alpha: 0.3)
-                savedLabel.textAlignment = .center
-                
-                savedLabel.frame = CGRect(x: 0, y: 0, width: 150, height: 80)
-                savedLabel.center = self.center
-                
-                self.addSubview(savedLabel)
-                
-                savedLabel.layer.transform = CATransform3DMakeScale(0, 0, 0)
-                
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                    
-                    savedLabel.layer.transform = CATransform3DMakeScale(1, 1, 1)
-                    
-                }, completion: { (completed) in
-                    
-                    UIView.animate(withDuration: 0.5, delay: 0.75, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: { 
-                        
-                        savedLabel.layer.transform = CATransform3DMakeScale(0.1, 0.1, 0.1)
-                        savedLabel.alpha = 0
-                        
-                    }, completion: { (_) in
-                        
-                        savedLabel.removeFromSuperview()
-                        
-                    })
-                    
-                })
-            }
-        }
+        DataService.instance.savePhoto(image: previewImage, view: self)
     }
     
-    func handleSend() {
+    func handleNext() {
+        
+        // TODO: Mejorar la entrada de estos elementos
         
         addSubview(photoCaption)
-        photoCaption.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 4, paddingBottom: 0, paddingRight: 4, width: 0, height: 100)
+        photoCaption.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 8, width: 0, height: 100)
         photoCaption.alpha = 0
         
-        addSubview(shareButton)
-        shareButton.anchor(top: photoCaption.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 4, width: 20, height: 20)
-        
-        shareButton.addTarget(self, action: #selector(shareEvent), for: .touchUpInside)
-        
-        shareButton.alpha = 0
+        addSubview(sendButton)
+        sendButton.anchor(top: photoCaption.bottomAnchor, left: nil, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 4, width: 20, height: 20)
+        sendButton.alpha = 0
         
         UIView.animate(withDuration: 0.3, delay: 0.4, options: .curveEaseIn, animations: {
             
             self.photoCaption.alpha = 1
-            self.shareButton.alpha = 1
+            self.sendButton.alpha = 1
             
         }) { (succes) in
             print("success")
         }
     }
     
-    func shareEvent() {
+    func handleSend() {
         // Retreieve Auth_Token from Keychain
         if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
             
@@ -184,26 +140,19 @@ class PreviewPhotoContainerView: UIView {
         self.removeFromSuperview()
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        backgroundColor = .yellow
-        
-        addSubview(previewImageView)
-        previewImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-        
-        addSubview(cancelButton)
-        cancelButton.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
-        
-        addSubview(saveButton)
-        saveButton.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 24, paddingBottom: 24, paddingRight: 0, width: 50, height: 50)
-        
-        addSubview(sendButton)
-        sendButton.anchor(top: nil, left: nil, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 24, paddingRight: 24, width: 50, height: 50)
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        
+//        backgroundColor = .white
+//        setupViews()
+//        
+//    }
+//    
+//    func setupViews() {
+//        fetchvi
+//    }
+//    
+//    required init?(coder aDecoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
 }

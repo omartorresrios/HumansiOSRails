@@ -22,7 +22,7 @@ class StartViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         videoPhotoButtonCenter = videoPhotoButton.center
         photoLibraryButtonCenter = photoLibraryButton.center
         textButtonCenter = textButton.center
@@ -82,7 +82,7 @@ class StartViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func videoPhotoClicked(_ sender: UIButton) {
         toggleButton(button: sender, onImage: #imageLiteral(resourceName: "videoPhotoOn"), offImage: #imageLiteral(resourceName: "videoPhotoOff"))
         
-        let videoPhotoContentViewController = VideoPhotoContentViewController()
+        let videoPhotoContentViewController = CameraController()
         present(videoPhotoContentViewController, animated: true, completion: nil)
         
     }

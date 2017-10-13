@@ -19,7 +19,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PageMenu.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-ReputationApp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyCam.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>UICircularProgressRing.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,17 +47,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>2323AAEA780B9A2F15A4D5FE095A0B80</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2D9D75E6EB29C5B829A10B61BD193F87</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B88164129E805DD0A692DB6ECBDB352E</key>
+		<key>978A447F57E812AEE5D676FF361F1416</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C7F727D48928BF47D913AFC48BB6A978</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FEFC375167B8C3007880C69A0DAACE9C</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -2,17 +2,26 @@ PODS:
   - Alamofire (4.5.0)
   - JDStatusBarNotification (1.5.5)
   - Locksmith (3.0.0)
+  - PageMenu (2.0.0)
+  - SwiftyCam (2.6.0)
+  - UICircularProgressRing (1.7.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
   - JDStatusBarNotification
   - Locksmith
+  - PageMenu
+  - SwiftyCam
+  - UICircularProgressRing
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   JDStatusBarNotification: 2b4f29bd68a60d7aa2f190b5265f1ce59c18aaf8
   Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
+  PageMenu: 9c38fd7e0d9ef4b1408320f55bb907bbc0e538dc
+  SwiftyCam: 86c114177a1b1f5dc2c82384577d0c20b922a31b
+  UICircularProgressRing: 8d7904a0eda5a7c821b5852b36c37683867149a8
 
-PODFILE CHECKSUM: 886301d3922ccc888fd37a90152cf96c2fa6ae7f
+PODFILE CHECKSUM: 32f8ef8ce0aba8ea393ead3ec2487fec46c17b88
 
 COCOAPODS: 1.2.1

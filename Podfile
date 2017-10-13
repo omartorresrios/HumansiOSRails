@@ -9,5 +9,8 @@ target 'ReputationApp' do
   pod 'Alamofire', '~> 4.4'
   pod 'Locksmith'
   pod 'JDStatusBarNotification'
+  pod "SwiftyCam"
+  pod 'PageMenu'
+  pod 'UICircularProgressRing'
 
 end

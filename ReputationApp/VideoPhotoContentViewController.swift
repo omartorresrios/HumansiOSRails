@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDelegate, UIViewControllerTransitioningDelegate {
+class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDelegate, UIViewControllerTransitioningDelegate, AVCaptureFileOutputRecordingDelegate, UIGestureRecognizerDelegate {
     
     let dismissButton: UIButton = {
         let button = UIButton(type: .system)
@@ -28,6 +28,25 @@ class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDe
         button.addTarget(self, action: #selector(handleCapturePhoto), for: .touchUpInside)
         return button
     }()
+    
+    let captureVideoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "dot"), for: .normal)
+        
+        return button
+    }()
+    
+    let stopRecording: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("jaja", for: .normal)
+        button.addTarget(self, action: #selector(handleStopRecording), for: .touchUpInside)
+        return button
+    }()
+    
+    func handleStopRecording() {
+        videoFileOutput.stopRecording()
+        print("stop recording")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,9 +83,130 @@ class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDe
         capturePhotoButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 24, paddingRight: 0, width: 80, height: 80)
         capturePhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        view.addSubview(captureVideoButton)
+        captureVideoButton.anchor(top: nil, left: nil, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 80, height: 80)
+        captureVideoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        captureVideoButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
+//        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleCaptureVideo))
+//        longPressRecognizer.delegate = self
+//        longPressRecognizer.minimumPressDuration = 1
+//        view.addGestureRecognizer(longPressRecognizer)
+//        captureVideoButton.addGestureRecognizer(longPressRecognizer)
+        captureVideoButton.addTarget(self, action: #selector(handleCaptureVideo), for: .touchUpInside)
+        
+        
         view.addSubview(dismissButton)
         dismissButton.anchor(top: view.topAnchor, left: nil, bottom: nil, right: view.rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 50, height: 50)
+        
+        
+        view.addSubview(stopRecording)
+        stopRecording.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
+        stopRecording.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        stopRecording.alpha = 0
+        
     }
+    
+    func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
+        
+    }
+    
+    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        print("FINISHED \(error)")
+        // save video to camera roll
+        if error == nil {
+            
+            UISaveVideoAtPathToSavedPhotosAlbum(outputFileURL.path, nil, nil, nil)
+        } else {
+            print("this is the error: ", error)
+        }
+    }
+    
+    let videoFileOutput = AVCaptureMovieFileOutput()
+    
+    func handleCaptureVideo() {
+        stopRecording.alpha = 1
+        
+        
+        
+//        captureSession.addOutput(videoFileOutput)
+//        
+//        captureSession.startRunning()
+
+        let recordingDelegate:AVCaptureFileOutputRecordingDelegate? = self
+        
+        self.captureSession.addOutput(videoFileOutput)
+        
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let fileUrl = paths[0].appendingPathComponent("video").appendingPathExtension("mov")
+        try? FileManager.default.removeItem(at: fileUrl)
+//        try? FileManager.default.removeItem(at: fileUrl)
+        videoFileOutput.startRecording(toOutputFileURL: fileUrl, recordingDelegate: recordingDelegate)
+
+//        if sender.state == UIGestureRecognizerState.ended {
+//            print("stopping")
+////            self.videoFileOutput.stopRecording({ videoFileOutput, fileUrl, error) in
+////                if error == nil {
+////                    let video = videovie
+////                }
+//        }
+        
+//        let delayTime = DispatchTime.now() + 5
+//        DispatchQueue.main.asyncAfter(deadline: delayTime) {
+//            print("stopping")
+//            self.videoFileOutput.stopRecording()
+//        }
+        
+        
+        
+        
+        
+        
+//        let recordingDelegate:AVCaptureFileOutputRecordingDelegate? = self
+//        
+//        self.captureSession.addOutput(videoFileOutput)
+//        
+//        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        let fileUrl = paths[0].appendingPathComponent("output.mov")
+////        try? FileManager.default.removeItem(at: fileUrl)
+//        videoFileOutput.startRecording(toOutputFileURL: fileUrl, recordingDelegate: recordingDelegate)
+        
+        
+        
+        
+        
+        
+//        let recordingDelegate:AVCaptureFileOutputRecordingDelegate? = self
+//        
+//        let videoFileOutput = AVCaptureMovieFileOutput()
+//        self.captureSession.addOutput(videoFileOutput)
+//        
+//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//        let filePath = documentsURL.appendingPathComponent("temp")
+//        
+//        videoFileOutput.startRecording(toOutputFileURL: filePath, recordingDelegate: recordingDelegate)
+//        
+        
+        
+////        let fileName = "mysavefile.mp4";
+//        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+//        let filePath = documentsURL.appendingPathComponent("temp")
+//        
+////        captureSession.sessionPreset = AVCaptureSessionPresetHigh
+//        
+//        
+//        let videoFileOutput = AVCaptureMovieFileOutput()
+//        
+//        captureSession.addOutput(videoFileOutput)
+//        
+//        let recordingDelegate:AVCaptureFileOutputRecordingDelegate? = self
+//        videoFileOutput.startRecording(toOutputFileURL: filePath, recordingDelegate: recordingDelegate)
+        
+
+        
+    }
+    
+    
     
     func handleCapturePhoto() {
         
@@ -171,8 +311,4 @@ class VideoPhotoContentViewController: UIViewController, AVCapturePhotoCaptureDe
     }
     
 
-    func applicationDocumentsDirectory() -> NSURL {
-        return FileManager.defaultManager.URLsForDirectory(FileManager.SearchPathDirectory.documentDirectory, inDomains: FileManager.SearchPathDomainMask.UserDomainMask).last
-    }
-    
 }
