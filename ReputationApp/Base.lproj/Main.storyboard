@@ -103,7 +103,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A35-M4-NzX" userLabel="more">
                                 <rect key="frame" x="162" y="360" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="3F028A34-8337-4117-A7DA-3630DDB9C5ED"/>
+                                <state key="normal" image="7BD55E3A-17FD-4CFB-9423-3550F381C0B3"/>
                                 <connections>
                                     <action selector="moreOptions:" destination="BYZ-38-t0r" eventType="touchUpInside" id="esS-vr-YcH"/>
                                 </connections>
@@ -139,7 +139,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="3F028A34-8337-4117-A7DA-3630DDB9C5ED" width="700" height="700">
+        <image name="7BD55E3A-17FD-4CFB-9423-3550F381C0B3" width="700" height="700">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA

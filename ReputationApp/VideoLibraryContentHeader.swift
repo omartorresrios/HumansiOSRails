@@ -1,14 +1,14 @@
 //
-//  PhotoLibraryContentHeader.swift
+//  VideoLibraryContentHeader.swift
 //  ReputationApp
 //
-//  Created by Omar Torres on 6/10/17.
+//  Created by Omar Torres on 16/10/17.
 //  Copyright © 2017 OmarTorres. All rights reserved.
 //
 
 import UIKit
 
-class PhotoLibraryContentHeader: UICollectionViewCell {
+class VideoLibraryContentHeader: UICollectionViewCell {
     let photoImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill

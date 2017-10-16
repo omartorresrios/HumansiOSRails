@@ -1,8 +1,8 @@
 //
-//  photoLibraryViewController.swift
+//  File.swift
 //  ReputationApp
 //
-//  Created by Omar Torres on 5/10/17.
+//  Created by Omar Torres on 13/10/17.
 //  Copyright © 2017 OmarTorres. All rights reserved.
 //
 
@@ -11,8 +11,8 @@ import Photos
 import Alamofire
 import Locksmith
 
-class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
+class VideoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
     let cellId = "cellId"
     let headerId = "headerId"
     
@@ -50,15 +50,33 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     fileprivate func fetchPhotos() {
         
-        let allPhotos = PHAsset.fetchAssets(with: .image, options: assetsFetchOptions())
+        let allVideos = PHAsset.fetchAssets(with: .video, options: self.assetsFetchOptions())
         
         DispatchQueue.global(qos: .background).async {
-            allPhotos.enumerateObjects({ (asset, count, stop) in
+            
+            
+            allVideos.enumerateObjects({ (asset, count, stop) in
                 
                 let imageManager = PHImageManager.default()
                 let targetSize = CGSize(width: 200, height: 200)
                 let options = PHImageRequestOptions()
                 options.isSynchronous = true
+                
+                imageManager.requestAVAsset(forVideo: asset, options: .none) { (avAsset, avAudioMix, dict) -> Void in
+                    if avAsset != nil {
+                        let url = avAsset?.value(forKeyPath: "URL")
+                        print("Just url: ", url!)
+                        
+                        //                        self.videoUrls.append(url as! URL)
+                        //                        self.assets.append(asset)
+                        //                        self.finalArray.append(self.videoUrls as NSObject)
+                        
+                        self.previewUrl = url as? URL
+                        print("List of previewUrls inside: ", self.previewUrl)
+                    }
+                }
+                
+                
                 imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options, resultHandler: { (image, info) in
                     
                     if let image = image {
@@ -70,60 +88,17 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
                         }
                     }
                     
-                    if count == allPhotos.count - 1 {
+                    if count == allVideos.count - 1 {
                         DispatchQueue.main.async {
                             self.collectionView?.reloadData()
                         }
                     }
-                    
                 })
-                
             })
+            print("List of previewUrls outside: ", self.previewUrl)
         }
         
-        //        let allVideos = PHAsset.fetchAssets(with: .video, options: self.assetsFetchOptions())
-        //
-        //        allVideos.enumerateObjects({ (asset, count, stop) in
-        //
-        //            let imageManager = PHImageManager.default()
-        //            let targetSize = CGSize(width: 200, height: 200)
-        //            let options = PHImageRequestOptions()
-        //            options.isSynchronous = true
-        //
-        //            imageManager.requestAVAsset(forVideo: asset, options: .none) { (avAsset, avAudioMix, dict) -> Void in
-        //                if avAsset != nil {
-        //                    let url = avAsset?.value(forKeyPath: "URL")
-        //                    print("Just url: ", url!)
-        //
-        //                    //                        self.videoUrls.append(url as! URL)
-        //                    //                        self.assets.append(asset)
-        //                    //                        self.finalArray.append(self.videoUrls as NSObject)
-        //
-        //                    self.previewUrl = url as? URL
-        //                    print("List of previewUrls inside: ", self.previewUrl)
-        //                }
-        //            }
-        //
-        //
-        //            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options, resultHandler: { (image, info) in
-        //
-        //                if let image = image {
-        //                    self.images.append(image)
-        //                    self.assets.append(asset)
-        //
-        //                    if self.selectedImage == nil {
-        //                        self.selectedImage = image
-        //                    }
-        //                }
-        //
-        //                if count == allVideos.count - 1 {
-        //                    DispatchQueue.main.async {
-        //                        self.collectionView?.reloadData()
-        //                    }
-        //                }
-        //            })
-        //        })
-        //        print("List of previewUrls outside: ", self.previewUrl)
+        
         
     }
     
@@ -144,7 +119,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         if let selectedImage = selectedImage {
             if let index = self.images.index(of: selectedImage) {
                 let selectedAsset = self.assets[index]
-        
+                
                 let imageManager = PHImageManager.default()
                 let targetSize = CGSize(width: 600, height: 600)
                 
@@ -242,7 +217,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         //                    }
         //                })
         //            }
-        //            
+        //
         //        } else {
         //            print("Impossible retrieve previewUrl")
         //        }
@@ -301,7 +276,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     var previewUrl: URL?
     
     var videoUrls = [URL]()
-
+    
     func sendEvent() {
         // Retreieve Auth_Token from Keychain
         if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
