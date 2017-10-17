@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A035A9E21F91C36500EEBD25 /* VideoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A035A9E11F91C36500EEBD25 /* VideoLibraryViewController.swift */; };
 		A03985391F8BCC000025A7AB /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A03985381F8BCC000025A7AB /* CameraController.swift */; };
 		A039853B1F8BEECE0025A7AB /* PreviewVideoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A039853A1F8BEECE0025A7AB /* PreviewVideoContainerView.swift */; };
 		A07B3BC21ED7800800F10657 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BC11ED7800800F10657 /* DataService.swift */; };
@@ -68,7 +67,6 @@
 
 /* Begin PBXFileReference section */
 		6E28B6B66614A10E560EF10A /* Pods-ReputationApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReputationApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-ReputationApp/Pods-ReputationApp.release.xcconfig"; sourceTree = "<group>"; };
-		A035A9E11F91C36500EEBD25 /* VideoLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLibraryViewController.swift; sourceTree = "<group>"; };
 		A03985381F8BCC000025A7AB /* CameraController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		A039853A1F8BEECE0025A7AB /* PreviewVideoContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewVideoContainerView.swift; sourceTree = "<group>"; };
 		A07B3BC11ED7800800F10657 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -204,10 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				A09EEB7E1F86BA29009836DC /* PhotoLibraryViewController.swift */,
-				A09EEB881F8825FD009836DC /* PhotoLibraryContentCell.swift */,
-				A09EEB8A1F882CE9009836DC /* PhotoLibraryContentHeader.swift */,
-				A0BD09FA1F955E56009C0CD3 /* VideoLibraryContentHeader.swift */,
-				A035A9E11F91C36500EEBD25 /* VideoLibraryViewController.swift */,
+				A0BD09FC1F966C99009C0CD3 /* Cells and Headers */,
 			);
 			name = PhotoLibraryContent;
 			sourceTree = "<group>";
@@ -308,6 +303,16 @@
 				A09EEB6D1F867C3F009836DC /* TextContentViewController.swift */,
 			);
 			name = TextContent;
+			sourceTree = "<group>";
+		};
+		A0BD09FC1F966C99009C0CD3 /* Cells and Headers */ = {
+			isa = PBXGroup;
+			children = (
+				A09EEB881F8825FD009836DC /* PhotoLibraryContentCell.swift */,
+				A09EEB8A1F882CE9009836DC /* PhotoLibraryContentHeader.swift */,
+				A0BD09FA1F955E56009C0CD3 /* VideoLibraryContentHeader.swift */,
+			);
+			name = "Cells and Headers";
 			sourceTree = "<group>";
 		};
 		A0EF64041EC40757006609F7 = {
@@ -570,7 +575,6 @@
 				A07B958C1F2E4A34008E9EA0 /* AddPeopleController.swift in Sources */,
 				A09EEB8B1F882CE9009836DC /* PhotoLibraryContentHeader.swift in Sources */,
 				A07B3C401EDB83EE00F10657 /* UserProfileController.swift in Sources */,
-				A035A9E21F91C36500EEBD25 /* VideoLibraryViewController.swift in Sources */,
 				A09EEB851F8729D1009836DC /* SegueFromBottom.swift in Sources */,
 				A09EEB6E1F867C3F009836DC /* TextContentViewController.swift in Sources */,
 				A07B958E1F2E84CE008E9EA0 /* Reachability.swift in Sources */,

@@ -13,33 +13,35 @@ import Locksmith
 
 class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    let photoCaption: UITextView = {
+        let tv = UITextView()
+        return tv
+    }()
+    
+    let shareButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .yellow
+        return button
+    }()
+    
     let cellId = "cellId"
-    let headerId = "headerId"
+    let photoHeaderId = "photoHeaderId"
     let videoHeaderId = "videoHeaderId"
     
     var selectedImage: UIImage?
     var selectedVideo: UIImage?
     var images = [UIImage]()
     var videos = [UIImage]()
-    var assets = [PHAsset]()
+    var photoAssets = [PHAsset]()
     var videoAssets = [PHAsset]()
     
     let items = ["Fotos", "Videos"]
-    var customSC = UISegmentedControl()
+    var segmentedControl = UISegmentedControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let paddingTop = (navigationController?.navigationBar.frame.size.height)!
-        
-        customSC = UISegmentedControl(items: items)
-        
-        customSC.selectedSegmentIndex = 0
-        view.addSubview(customSC)
-        customSC.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: paddingTop, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 30)
-        
-        // Add target action method
-        customSC.addTarget(self, action: #selector(changeView(sender:)), for: .valueChanged)
+        setupSegmentedControl()
         
         collectionView?.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 29	, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
@@ -48,19 +50,29 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         setupNavigationButtons()
         
         collectionView?.register(PhotoLibraryContentCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView?.register(PhotoLibraryContentHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
+        collectionView?.register(PhotoLibraryContentHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: photoHeaderId)
         collectionView?.register(VideoLibraryContentHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: videoHeaderId)
         
         fetchPhotosAndVideos()
     }
     
+    func setupSegmentedControl() {
+        segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.selectedSegmentIndex = 0
+        
+        view.addSubview(segmentedControl)
+        let paddingTop = (navigationController?.navigationBar.frame.size.height)!
+        segmentedControl.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: paddingTop, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 30)
+        
+        segmentedControl.addTarget(self, action: #selector(changeView(sender:)), for: .valueChanged)
+    }
+    
     func changeView(sender: UISegmentedControl) {
-        print("changing")
         collectionView?.reloadData()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if customSC.selectedSegmentIndex == 0 {
+        if segmentedControl.selectedSegmentIndex == 0 {
             self.selectedImage = images[indexPath.item]
         } else {
             self.selectedVideo = videos[indexPath.item]
@@ -96,7 +108,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
                     
                     if let image = image {
                         self.images.append(image)
-                        self.assets.append(asset)
+                        self.photoAssets.append(asset)
                         
                         if self.selectedImage == nil {
                             self.selectedImage = image
@@ -121,21 +133,6 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
                 let options = PHImageRequestOptions()
                 options.isSynchronous = true
                 
-                imageManager.requestAVAsset(forVideo: asset, options: .none) { (avAsset, avAudioMix, dict) -> Void in
-                    if avAsset != nil {
-                        let url = avAsset?.value(forKeyPath: "URL")
-                        print("Just url: ", url!)
-                        
-                                                self.videoUrls.append(url as! URL)
-                        //                        self.assets.append(asset)
-//                                                self.finalArray.append(self.videoUrls as NSObject)
-                        
-                        self.previewUrl = url as? URL
-                        print("List of previewUrls inside: ", self.previewUrl)
-                    }
-                }
-                
-                
                 imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options, resultHandler: { (image, info) in
                     
                     if let image = image {
@@ -154,8 +151,6 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
                     }
                 })
             })
-            print("List of previewUrls outside: ", self.previewUrl)
-            
         }
         
     }
@@ -188,15 +183,15 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if customSC.selectedSegmentIndex == 0 {
+        if segmentedControl.selectedSegmentIndex == 0 {
             
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! PhotoLibraryContentHeader
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: photoHeaderId, for: indexPath) as! PhotoLibraryContentHeader
             
             header.photoImageView.image = selectedImage
             
             if let selectedImage = selectedImage {
                 if let index = self.images.index(of: selectedImage) {
-                    let selectedAsset = self.assets[index]
+                    let selectedAsset = self.photoAssets[index]
                     
                     let imageManager = PHImageManager.default()
                     let targetSize = CGSize(width: 600, height: 600)
@@ -243,19 +238,14 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
                                     
                                 }
                             }
-                            
                         })
-                        
                     }
-                    
                 }
             }
             
             return videoHeader
         }
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
@@ -271,39 +261,21 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if customSC.selectedSegmentIndex == 0 {
+        if segmentedControl.selectedSegmentIndex == 0 {
             return images.count
         } else {
             return videos.count
         }
-        //        return images.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoLibraryContentCell
         
-        if customSC.selectedSegmentIndex == 0 {
+        if segmentedControl.selectedSegmentIndex == 0 {
             cell.photoImageView.image = images[indexPath.item]
         } else {
             cell.photoImageView.image = videos[indexPath.item]
-            
-            
-//            if let urlurl = previewUrl {
-//                
-//                let data = try? Data(contentsOf: urlurl)
-//                let image: UIImage = UIImage(data: data!)!
-                
-//                if cell.photoImageView.image == image {
-                
-            
-//                }
-                
-//            } else {
-//                print("Impossible retrieve previewUrl")
-//            }
         }
-        
-        
         
         return cell
     }
@@ -318,17 +290,6 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .plain, target: self, action: #selector(handleNext))
     }
-    
-    let photoCaption: UITextView = {
-        let tv = UITextView()
-        return tv
-    }()
-    
-    let shareButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .yellow
-        return button
-    }()
     
     func handleCancel() {
         dismiss(animated: true, completion: nil)
@@ -356,9 +317,6 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         }
         
     }
-    var previewUrl: URL?
-    
-    var videoUrls = [URL]()
     
     func sendEvent() {
         // Retreieve Auth_Token from Keychain
