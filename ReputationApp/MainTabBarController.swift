@@ -14,7 +14,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         
             
         let index = viewControllers?.index(of: viewController)
-        if index == 1 {
+        if index == 2 {
             
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let startViewController = mainStoryboard.instantiateViewController(withIdentifier: "StartView")
@@ -60,13 +60,15 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     func setupViewControllers(completion: @escaping _Callback) {
         
-        //search
+        // home
+        let feedNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "happy_face_unselected"), selectedImage: #imageLiteral(resourceName: "happy_face_selected"), rootViewController: UserFeedController(collectionViewLayout: UICollectionViewFlowLayout()))
+        
+        // search
         let searchNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: UserSearchController(collectionViewLayout: UICollectionViewFlowLayout()))
         
         let plusNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "gear"), selectedImage: #imageLiteral(resourceName: "dot"))
         
-        
-        //user ranking
+        // user ranking
         let layout = UICollectionViewFlowLayout()
         let userRankingController = UserRankingController(collectionViewLayout: layout)
         
@@ -77,7 +79,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         tabBar.tintColor = UIColor.mainBlue()
         
-        viewControllers = [searchNavController, plusNavController, userRankingNavController]
+        viewControllers = [feedNavController, searchNavController, plusNavController, userRankingNavController]
         
         completion(true)
         

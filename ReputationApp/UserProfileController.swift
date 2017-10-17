@@ -105,15 +105,7 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
     }
     
     func showWriteCV() {
-        let layout = UICollectionViewFlowLayout()
-        let writeReviewController = WriteReviewController(collectionViewLayout: layout)
         
-        writeReviewController.userReceiverId = "\(userId)"
-        writeReviewController.userReceiverFullname = userFullname
-        writeReviewController.userReceiverImageUrl = userImageUrl
-        
-        let navController = UINavigationController(rootViewController: writeReviewController)
-        present(navController, animated: true, completion: nil)
     }
     
     func showPreviousCV() {
