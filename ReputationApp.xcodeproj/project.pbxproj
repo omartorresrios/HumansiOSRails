@@ -164,18 +164,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A039853C1F8D1E4C0025A7AB /* Photo */ = {
+		A039853C1F8D1E4C0025A7AB /* Previews */ = {
 			isa = PBXGroup;
 			children = (
+				A0F254171F89C2FD00FC234A /* PreviewPhotoContainerView.swift */,
+				A039853A1F8BEECE0025A7AB /* PreviewVideoContainerView.swift */,
 			);
-			name = Photo;
-			sourceTree = "<group>";
-		};
-		A039853D1F8D1E520025A7AB /* Video */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Video;
+			name = Previews;
 			sourceTree = "<group>";
 		};
 		A039853E1F8D1E5A0025A7AB /* Transition */ = {
@@ -284,12 +279,9 @@
 		A09EEB691F867BFF009836DC /* VideoPhotoContent */ = {
 			isa = PBXGroup;
 			children = (
-				A039853E1F8D1E5A0025A7AB /* Transition */,
-				A039853D1F8D1E520025A7AB /* Video */,
-				A039853C1F8D1E4C0025A7AB /* Photo */,
-				A0F254171F89C2FD00FC234A /* PreviewPhotoContainerView.swift */,
-				A039853A1F8BEECE0025A7AB /* PreviewVideoContainerView.swift */,
 				A03985381F8BCC000025A7AB /* CameraController.swift */,
+				A039853E1F8D1E5A0025A7AB /* Transition */,
+				A039853C1F8D1E4C0025A7AB /* Previews */,
 			);
 			name = VideoPhotoContent;
 			sourceTree = "<group>";

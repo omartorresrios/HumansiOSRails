@@ -8,6 +8,7 @@
 
 import Foundation
 import Photos
+import Alamofire
 
 class DataService {
     
@@ -107,6 +108,46 @@ class DataService {
                 })
             }
         }
+    }
+    
+    func shareVideo(authToken: String, videoCaption: UITextView, videoUrl: URL) {
+        guard let caption = videoCaption.text else { return }
+        
+        // Set Authorization header
+        let header = ["Authorization": "Token token=\(authToken)"]
+        
+        let parameters = ["description": caption] as [String : Any]
+        
+        let url = URL(string: "https://protected-anchorage-18127.herokuapp.com/api/writeEvent")!
+        
+        Alamofire.upload(multipartFormData: { multipartFormData in
+            
+            multipartFormData.append(videoUrl, withName: "video", fileName: ".mp4", mimeType: "video/mp4")
+            
+            for (key, value) in parameters {
+                multipartFormData.append(((value as Any) as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
+            }
+            
+        }, usingThreshold: UInt64.init() , to: url, method: .post, headers: header, encodingCompletion: { encodingResult in
+            
+            switch encodingResult {
+            case .success(let upload, _, _):
+                
+                upload.responseJSON { response in
+                    print("request: \(response.request!)") // original URL request
+                    print("response: \(response.response!)") // URL response
+                    print("response data: \(response.data!)") // server data
+                    print("result: \(response.result)") // result of response serialization
+                    
+                    if let JSON = response.result.value {
+                        print("JSON: \(JSON)")
+                    }
+                }
+                
+            case .failure(let encodingError):
+                print("Alamofire proccess failed", encodingError)
+            }
+        })
     }
     
 }

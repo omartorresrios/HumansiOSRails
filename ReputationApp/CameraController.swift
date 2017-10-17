@@ -77,78 +77,9 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
             
             let authToken = userToken["authenticationToken"] as! String
-            
             print("the current user token: \(userToken)")
             
-            guard let caption = videoCaption.text else { return }
-            
-            // Set Authorization header
-            let header = ["Authorization": "Token token=\(authToken)"]
-            
-            let parameters = ["description": caption] as [String : Any]
-            
-            let url = URL(string: "https://protected-anchorage-18127.herokuapp.com/api/writeEvent")!
-            
-            
-            
-            
-            Alamofire.upload(multipartFormData: { multipartFormData in
-                
-                multipartFormData.append(self.videoUrl!, withName: "video", fileName: ".mp4", mimeType: "video/mp4")
-                
-                for (key, value) in parameters {
-                    multipartFormData.append(((value as Any) as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
-                }
-                
-            }, usingThreshold: UInt64.init() , to: url, method: .post, headers: header, encodingCompletion: { encodingResult in
-                
-                switch encodingResult {
-                case .success(let upload, _, _):
-                    
-                    upload.responseJSON { response in
-                        print("request: \(response.request!)") // original URL request
-                        print("response: \(response.response!)") // URL response
-                        print("response data: \(response.data!)") // server data
-                        print("result: \(response.result)") // result of response serialization
-                        
-                        if let JSON = response.result.value {
-                            print("JSON: \(JSON)")
-                        }
-                    }
-                    
-                case .failure(let encodingError):
-                    print("Alamofire proccess failed", encodingError)
-                }
-            })
-            
-            
-            
-            
-            
-//            Alamofire.upload(multipartFormData: { (multipartFormData) in
-//                multipartFormData.append(self.videoUrl!, withName: "video", fileName: ".mp4", mimeType: "video/mp4")
-//            }, usingThreshold: UInt64.init(), to: url, method: .post, headers: header, encodingCompletion: { (encodingResult) in
-//                switch encodingResult {
-//                case .success(let upload, _, _):
-//
-//                    upload.responseJSON { response in
-//                        print("request: \(response.request!)") // original URL request
-//                        print("response: \(response.response!)") // URL response
-//                        print("response data: \(response.data!)") // server data
-//                        print("result: \(response.result)") // result of response serialization
-//
-//                        if let JSON = response.result.value {
-//                            print("JSON: \(JSON)")
-//                        }
-//                    }
-//                    
-//                case .failure(let encodingError):
-//                    print("Alamofire proccess failed", encodingError)
-//                }
-//            })
-            
-            
-            
+            DataService.instance.shareVideo(authToken: authToken, videoCaption: self.videoCaption, videoUrl: videoUrl!)
             
         } else {
             print("Impossible retrieve token")
@@ -165,11 +96,9 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         let circleWidth = CGFloat(80)
         let circleHeight = circleWidth
         
-        // Create a new CircleView
         let circleView = CircleView(frame: CGRect(x: diceRoll, y: y, width: circleWidth, height: circleHeight))
         
         view.addSubview(circleView)
-        
         
         circleView.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
         UIView.animate(withDuration: 0.4) {
