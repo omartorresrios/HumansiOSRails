@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import Locksmith
+import AVKit
+import AVFoundation
 
 private let reuseIdentifier = "Cell"
 
@@ -34,6 +36,28 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     
     let url = URL(string: "https://protected-anchorage-18127.herokuapp.com/api/all_events")!
     
+    func videoSnapshot(filePathLocal: NSString) -> UIImage? {
+        
+        let vidURL = NSURL(string: filePathLocal as String)//NSURL(fileURLWithPath: filePathLocal as String)
+        let asset = AVURLAsset(url: vidURL as! URL, options: nil)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        
+        let timestamp = CMTime(seconds: 2, preferredTimescale: 60)
+        
+        do {
+            let imageRef = try generator.copyCGImage(at: timestamp, actualTime: nil)
+            return UIImage(cgImage: imageRef)
+        }
+        catch let error as NSError
+        {
+            print("Image generation failed with error \(error)")
+            return nil
+        }
+    }
+    
+    var selectedImage: UIImage?
+    
     func getAllAvents() {
         
         // Retreieve Auth_Token from Keychain
@@ -54,33 +78,83 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
                 print("result: \(response.result)") // result of response serialization
                 
                 if let JSON = response.result.value as? [[String: Any]] {
-                    print("ALLEVENTSJSON: \(JSON)")
                     
                     for item in JSON {
+                        
                         let event_url = item["event_url"] as! String
+                        
+                        print("\nitem: ", item)
+                        
                         var image = UIImage()
                         let imageURL = URL(string: event_url)
                         
-                        DispatchQueue.global(qos: .default).async(execute: {() -> Void in
                         
-                            do {
-                                let imageData = try Data(contentsOf: imageURL!)
-                                DispatchQueue.main.async(execute: {() -> Void in
-                                    
-                                    image = UIImage(data: imageData)!
-                                    self.images.append(image)
-                                    
-                                    self.collectionView?.reloadData()
-                                    
-                            })
-                            } catch {
-                                print(error)
-                            }
-                        })
+                        print("Its a video and the video url is: ", event_url)
+                        
+                        self.videoUrl = URL(string: event_url)
+                        
+                        image = self.videoSnapshot(filePathLocal: event_url as NSString)!
+                        
+                        self.images.append(image)
+                        
+                        if self.selectedImage == nil {
+                            self.selectedImage = image
+                        }
+                        
+                        self.collectionView?.reloadData()
                     }
                 }
             }
         }
+    }
+    
+    var videoUrl: URL?
+    
+    func removeImage() {
+        
+        let imageView = (self.view.viewWithTag(100)! as! UIImageView)
+        imageView.removeFromSuperview()
+    }
+    
+    func addImageViewWithImage(image: UIImage, completion: () -> ()) {
+        
+        let imageView = UIImageView(frame: self.view.frame)
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = UIColor.black
+        imageView.image = image
+        imageView.tag = 100
+        
+        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(removeImage))
+        dismissTap.numberOfTapsRequired = 1
+        imageView.addGestureRecognizer(dismissTap)
+        self.view.addSubview(imageView)
+        
+        completion()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedImage = images[indexPath.item]
+        
+        addImageViewWithImage(image: self.selectedImage!) { 
+            playVideo(url: videoUrl!)
+        }
+    }
+    
+    func playVideo(url: URL) {
+        let videoURL = URL(string: (url.absoluteString))
+        let player = AVPlayer(url: videoURL!)
+        let playerLayer = AVPlayerLayer(player: player)
+        playerLayer.frame = view.bounds
+        playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        view.layer.addSublayer(playerLayer)//cell.layer.addSublayer(playerLayer)
+        player.play()
+        
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: player.currentItem, queue: nil, using: { (_) in
+            DispatchQueue.main.async {
+                player.seek(to: kCMTimeZero)
+                player.play()
+            }
+        })
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -89,9 +163,9 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: userFeedCell, for: indexPath) as! UserFeedCell
- 
+        
         cell.photoImageView.image = self.images[indexPath.item]
-    
+        
         return cell
     }
 

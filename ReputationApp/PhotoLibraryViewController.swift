@@ -25,23 +25,14 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     }()
     
     let cellId = "cellId"
-    let photoHeaderId = "photoHeaderId"
     let videoHeaderId = "videoHeaderId"
     
-    var selectedImage: UIImage?
     var selectedVideo: UIImage?
-    var images = [UIImage]()
     var videos = [UIImage]()
-    var photoAssets = [PHAsset]()
     var videoAssets = [PHAsset]()
-    
-    let items = ["Fotos", "Videos"]
-    var segmentedControl = UISegmentedControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupSegmentedControl()
         
         collectionView?.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 29	, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
@@ -50,33 +41,15 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         setupNavigationButtons()
         
         collectionView?.register(PhotoLibraryContentCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView?.register(PhotoLibraryContentHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: photoHeaderId)
+        
         collectionView?.register(VideoLibraryContentHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: videoHeaderId)
         
-        fetchPhotosAndVideos()
-    }
-    
-    func setupSegmentedControl() {
-        segmentedControl = UISegmentedControl(items: items)
-        segmentedControl.selectedSegmentIndex = 0
-        
-        view.addSubview(segmentedControl)
-        let paddingTop = (navigationController?.navigationBar.frame.size.height)!
-        segmentedControl.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: paddingTop, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 30)
-        
-        segmentedControl.addTarget(self, action: #selector(changeView(sender:)), for: .valueChanged)
-    }
-    
-    func changeView(sender: UISegmentedControl) {
-        collectionView?.reloadData()
+        fetchVideos()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if segmentedControl.selectedSegmentIndex == 0 {
-            self.selectedImage = images[indexPath.item]
-        } else {
-            self.selectedVideo = videos[indexPath.item]
-        }
+        
+        self.selectedVideo = videos[indexPath.item]
         
         self.collectionView?.reloadData()
         
@@ -92,39 +65,11 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         return fetchOptions
     }
     
-    fileprivate func fetchPhotosAndVideos() {
+    fileprivate func fetchVideos() {
         
-        let allPhotos = PHAsset.fetchAssets(with: .image, options: assetsFetchOptions())
         let allVideos = PHAsset.fetchAssets(with: .video, options: self.assetsFetchOptions())
         
         DispatchQueue.global(qos: .background).async {
-            allPhotos.enumerateObjects({ (asset, count, stop) in
-                
-                let imageManager = PHImageManager.default()
-                let targetSize = CGSize(width: 200, height: 200)
-                let options = PHImageRequestOptions()
-                options.isSynchronous = true
-                imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options, resultHandler: { (image, info) in
-                    
-                    if let image = image {
-                        self.images.append(image)
-                        self.photoAssets.append(asset)
-                        
-                        if self.selectedImage == nil {
-                            self.selectedImage = image
-                        }
-                    }
-                    
-                    if count == allPhotos.count - 1 {
-                        DispatchQueue.main.async {
-                            self.collectionView?.reloadData()
-                        }
-                    }
-                    
-                })
-                
-            })
-            
             
             allVideos.enumerateObjects({ (asset, count, stop) in
                 
@@ -183,68 +128,38 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
-        if segmentedControl.selectedSegmentIndex == 0 {
-            
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: photoHeaderId, for: indexPath) as! PhotoLibraryContentHeader
-            
-            header.photoImageView.image = selectedImage
-            
-            if let selectedImage = selectedImage {
-                if let index = self.images.index(of: selectedImage) {
-                    let selectedAsset = self.photoAssets[index]
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: videoHeaderId, for: indexPath) as! VideoLibraryContentHeader
+        
+        header.photoImageView.image = selectedVideo
+        
+        if let selectedVideo = selectedVideo {
+            if let index = self.videos.index(of: selectedVideo) {
+                let selectedAsset = self.videoAssets[index]
+                
+                let imageManager = PHImageManager.default()
+                let targetSize = CGSize(width: 600, height: 600)
+                
+                DispatchQueue.global(qos: .background).async {
                     
-                    let imageManager = PHImageManager.default()
-                    let targetSize = CGSize(width: 600, height: 600)
-                    
-                    DispatchQueue.global(qos: .background).async {
+                    imageManager.requestImage(for: selectedAsset, targetSize: targetSize, contentMode: .default, options: nil, resultHandler: { (image, info) in
                         
-                        imageManager.requestImage(for: selectedAsset, targetSize: targetSize, contentMode: .default, options: nil, resultHandler: { (image, info) in
-                            
-                            header.photoImageView.image = image
-                            
-                        })
+                        header.photoImageView.image = image
                         
-                    }
-                    
-                }
-            }
-            
-            return header
-            
-        } else {
-            
-            let videoHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: videoHeaderId, for: indexPath) as! VideoLibraryContentHeader
-            
-            videoHeader.photoImageView.image = selectedVideo
-            
-            if let selectedVideo = selectedVideo {
-                if let index = self.videos.index(of: selectedVideo) {
-                    let selectedAsset = self.videoAssets[index]
-                    
-                    let imageManager = PHImageManager.default()
-                    let targetSize = CGSize(width: 600, height: 600)
-                    
-                    DispatchQueue.global(qos: .background).async {
-                        
-                        imageManager.requestImage(for: selectedAsset, targetSize: targetSize, contentMode: .default, options: nil, resultHandler: { (image, info) in
-                            
-                            videoHeader.photoImageView.image = image
-                            
-                            imageManager.requestAVAsset(forVideo: selectedAsset, options: .none) { (avAsset, avAudioMix, dict) -> Void in
-                                if avAsset != nil {
-                                    let url = avAsset?.value(forKeyPath: "URL") as! URL
-                                    
-                                    self.playVideo(header: videoHeader, url: url)
-                                    
-                                }
+                        imageManager.requestAVAsset(forVideo: selectedAsset, options: .none) { (avAsset, avAudioMix, dict) -> Void in
+                            if avAsset != nil {
+                                let url = avAsset?.value(forKeyPath: "URL") as! URL
+                                self.videoUrl = url
+                                self.playVideo(header: header, url: url)
+                                
                             }
-                        })
-                    }
+                        }
+                    })
                 }
             }
-            
-            return videoHeader
         }
+        
+        return header
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -261,21 +176,13 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if segmentedControl.selectedSegmentIndex == 0 {
-            return images.count
-        } else {
-            return videos.count
-        }
+        return videos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoLibraryContentCell
         
-        if segmentedControl.selectedSegmentIndex == 0 {
-            cell.photoImageView.image = images[indexPath.item]
-        } else {
-            cell.photoImageView.image = videos[indexPath.item]
-        }
+        cell.photoImageView.image = videos[indexPath.item]
         
         return cell
     }
@@ -318,6 +225,8 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
         
     }
     
+    var videoUrl: URL?
+    
     func sendEvent() {
         // Retreieve Auth_Token from Keychain
         if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
@@ -337,11 +246,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
             
             Alamofire.upload(multipartFormData: { multipartFormData in
                 
-                let pictureSelected = UIImageJPEGRepresentation(self.selectedImage!, 0.5)
-                
-                if let pictureData = pictureSelected {
-                    multipartFormData.append(pictureData, withName: "picture", fileName: "picture.jpg", mimeType: "image/png")
-                }
+                multipartFormData.append(self.videoUrl!, withName: "video", fileName: ".mp4", mimeType: "video/mp4")
                 
                 for (key, value) in parameters {
                     multipartFormData.append(((value as Any) as AnyObject).data(using: String.Encoding.utf8.rawValue)!, withName: key)
