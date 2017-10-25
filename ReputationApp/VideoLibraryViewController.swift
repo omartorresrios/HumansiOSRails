@@ -11,7 +11,7 @@ import Photos
 import Alamofire
 import Locksmith
 
-class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class VideoLibraryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     let photoCaption: UITextView = {
         let tv = UITextView()
@@ -34,13 +34,13 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView?.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 29	, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        collectionView?.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
         collectionView?.backgroundColor = .white
         
         setupNavigationButtons()
         
-        collectionView?.register(PhotoLibraryContentCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.register(VideoLibraryContentCell.self, forCellWithReuseIdentifier: cellId)
         
         collectionView?.register(VideoLibraryContentHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: videoHeaderId)
         
@@ -180,7 +180,7 @@ class PhotoLibraryViewController: UICollectionViewController, UICollectionViewDe
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PhotoLibraryContentCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! VideoLibraryContentCell
         
         cell.photoImageView.image = videos[indexPath.item]
         

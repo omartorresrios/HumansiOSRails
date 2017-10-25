@@ -110,7 +110,10 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     
     var videoUrl: URL?
     
-    func removeImage() {
+    func dismissFullscreenImage() {
+        
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
         
         let imageView = (self.view.viewWithTag(100)! as! UIImageView)
         imageView.removeFromSuperview()
@@ -118,16 +121,19 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     
     func addImageViewWithImage(image: UIImage, completion: () -> ()) {
         
-        let imageView = UIImageView(frame: self.view.frame)
-        imageView.contentMode = .scaleAspectFit
-        imageView.backgroundColor = UIColor.black
+        let imageView = UIImageView()
         imageView.image = image
-        imageView.tag = 100
-        
-        let dismissTap = UITapGestureRecognizer(target: self, action: #selector(removeImage))
-        dismissTap.numberOfTapsRequired = 1
-        imageView.addGestureRecognizer(dismissTap)
+        imageView.frame = UIScreen.main.bounds
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        imageView.addGestureRecognizer(tap)
         self.view.addSubview(imageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+        
+        imageView.tag = 100
         
         completion()
     }
@@ -136,7 +142,7 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
         self.selectedImage = images[indexPath.item]
         
         addImageViewWithImage(image: self.selectedImage!) { 
-            playVideo(url: videoUrl!)
+//            playVideo(url: videoUrl!)
         }
     }
     

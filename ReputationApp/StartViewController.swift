@@ -68,8 +68,8 @@ class StartViewController: UIViewController, UIScrollViewDelegate {
         toggleButton(button: sender, onImage: #imageLiteral(resourceName: "photoLibraryOn"), offImage: #imageLiteral(resourceName: "photoLibraryOff"))
         
         let layout = UICollectionViewFlowLayout()
-        let photoLibraryView = PhotoLibraryViewController(collectionViewLayout: layout)
-        let navController = UINavigationController(rootViewController: photoLibraryView)
+        let videoLibraryView = VideoLibraryViewController(collectionViewLayout: layout)
+        let navController = UINavigationController(rootViewController: videoLibraryView)
         
         present(navController, animated: true, completion: nil)
         
