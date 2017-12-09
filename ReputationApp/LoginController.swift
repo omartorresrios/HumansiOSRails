@@ -76,13 +76,15 @@ class LoginController: UIViewController {
         defaults.synchronize()
     }
     
-    func saveApiTokenInKeychain(tokenString: String, idInt: Int) {
+    func saveApiTokenInKeychain(tokenString: String, idInt: Int, nameString: String) {
         // save API AuthToken in Keychain
         try! Locksmith.saveData(data: ["authenticationToken": tokenString], forUserAccount: "AuthToken")
         try! Locksmith.saveData(data: ["id": idInt], forUserAccount: "currentUserId")
+        try! Locksmith.saveData(data: ["name": nameString], forUserAccount: "currentUserName")
         
         print("AuthToken recién guardado: \(Locksmith.loadDataForUserAccount(userAccount: "AuthToken")!)")
         print("currentUserId recién guardado: \(Locksmith.loadDataForUserAccount(userAccount: "currentUserId")!)")
+        print("currentUserName recién guardado: \(Locksmith.loadDataForUserAccount(userAccount: "currentUserName")!)")
         
         self.dismiss(animated: true, completion: nil)
     }
@@ -143,9 +145,10 @@ class LoginController: UIViewController {
                             let userJSON = JSON["user"] as! NSDictionary
                             let authToken = userJSON["authenticationToken"] as! String
                             let userId = userJSON["id"] as! Int
+                            let userName = userJSON["fullname"] as! String
                             print("userJSON: \(userJSON)")
                             print("JSON: \(JSON)")
-                            self.saveApiTokenInKeychain(tokenString: authToken, idInt: userId)
+                            self.saveApiTokenInKeychain(tokenString: authToken, idInt: userId, nameString: userName)
                             print("authToken: \(authToken)")
                             print("userId: \(userId)")
                             

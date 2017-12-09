@@ -15,23 +15,42 @@ import Locksmith
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate, AVCapturePhotoCaptureDelegate {
     
+    
     let cancelButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Cancel", for: .normal)
+        button.tintColor = UIColor.darkGray
+        button.setTitle("  Cancel  ", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 25
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
         button.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         return button
     }()
     
     let saveButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Save", for: .normal)
+        button.tintColor = UIColor.darkGray
+        button.setTitle("  Save  ", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 25
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
         button.addTarget(self, action: #selector(handleSave), for: .touchUpInside)
         return button
     }()
     
     let nextButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Next", for: .normal)
+        button.tintColor = UIColor.darkGray
+        button.setTitle("  Next  ", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 25
+        button.backgroundColor = UIColor.white
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.white.cgColor
         button.addTarget(self, action: #selector(handleNext), for: .touchUpInside)
         return button
     }()
@@ -72,7 +91,7 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     }
     
     func handleSend() {
-        print("this is the final url: ", videoUrl)
+        print("this is the final url: ", videoUrl!)
         // Retreieve Auth_Token from Keychain
         if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
             
@@ -80,6 +99,12 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
             print("the current user token: \(userToken)")
             
             DataService.instance.shareVideo(authToken: authToken, videoCaption: self.videoCaption, videoUrl: videoUrl!)
+            
+            guard let data = NSData(contentsOf: videoUrl!) else {
+                return
+            }
+            
+            print("Final file size: \(Double(data.length / 1048576)) mb")
             
         } else {
             print("Impossible retrieve token")
@@ -117,7 +142,6 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     
     func swiftyButton() {
         view.addSubview(swiftyCamButton)
-        swiftyCamButton.delegate = self
         swiftyCamButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 20, paddingRight: 0, width: 80, height: 80)
         swiftyCamButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
@@ -125,15 +149,38 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        swiftyButton()
-        
         cameraDelegate = self
-        defaultCamera = .rear
+        defaultCamera = .front
         maximumVideoDuration = 20.0
         shouldUseDeviceOrientation = false
         allowAutoRotate = false
         audioEnabled = true
         
+//        let right = self.storyboard?.instantiateViewController(withIdentifier: "right") as UIViewController!
+//        self.addChildViewController(right!)
+//        self.scrollView.addSubview(right!.view)
+//        right!.didMove(toParentViewController: self)
+//        right!.view.frame = self.scrollView.bounds
+//
+//        let left = self.storyboard?.instantiateViewController(withIdentifier: "left") as UIViewController!
+//        self.addChildViewController(left!)
+//        self.scrollView.addSubview(left!.view)
+//        left!.didMove(toParentViewController: self)
+//        left!.view.frame = self.scrollView.bounds
+//
+//        var leftFrame: CGRect = left!.view.frame
+//        leftFrame.origin.x = 2 * self.view.frame.width
+//        left!.view.frame = leftFrame
+//
+//        self.scrollView.contentSize = CGSize(width: (self.view.frame.width) * 3, height: self.view.frame.height)
+//        self.scrollView.contentOffset = CGPoint(x: (self.view.frame.width) * 1, y: self.view.frame.height)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        swiftyCamButton.delegate = self
+        swiftyButton()
     }
     
     func handleSave() {
@@ -143,13 +190,13 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     func setupViews() {
         
         view.addSubview(cancelButton)
-        cancelButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
+        cancelButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         
         view.addSubview(saveButton)
-        saveButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 24, paddingBottom: 24, paddingRight: 0, width: 50, height: 50)
+        saveButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 24, paddingBottom: 24, paddingRight: 0, width: 0, height: 50)
         
         view.addSubview(nextButton)
-        nextButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 24, paddingRight: 24, width: 50, height: 50)
+        nextButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 24, paddingRight: 24, width: 0, height: 50)
         
     }
     
@@ -168,12 +215,13 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     let videoFileOutput = AVCaptureMovieFileOutput()
     let captureSession = AVCaptureSession()
     
+    var timerTest: Timer?
     var counter = 20
     
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didBeginRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("recording video")
         
-        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        timerTest = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         
         addCircleView()
         
@@ -189,11 +237,14 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
             counter -= 1
         }
     }
-
     
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didFinishRecordingVideo camera: SwiftyCamViewController.CameraSelection) {
         print("finishing recording video")
         
+        // Cancel the timer
+        timerTest?.invalidate()
+        timerTest = nil
+        print("video quality was: ", videoQuality)
     }
     
     var videoUrl: URL?

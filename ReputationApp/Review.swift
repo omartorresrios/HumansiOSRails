@@ -11,33 +11,18 @@ import Foundation
 struct Review {
     
     let id: Int
-//    let user: User
-    let content: String
-    let fromId: String
-    let toId: String
+    let event_url: String
+    let description: String
+    let user_avatar_url: String
+    let created_at: Date
     
-    let fromFullname: String
-    let fromProfileImageUrl: String
-    let creationDate: Date
-//    let isPositive: Bool
-    
-    var hasLiked = false
-    
-    init(dictionary: [String: Any]) {
-//        self.user = user
+    init(id: Int, dictionary: [String: Any]) {
         self.id = dictionary["id"] as? Int ?? 0
-        self.content = dictionary["content"] as? String ?? ""
-        self.fromId = dictionary["from"] as? String ?? ""
-        self.toId = dictionary["to"] as? String ?? ""
-//        self.isPositive = dictionary["isPositive"] as? Bool ?? false
-        
-        let secondsFrom1970 = dictionary["createdAt"] as? Double ?? 0
-        self.creationDate = Date(timeIntervalSince1970: secondsFrom1970)
-        
-        // Retrieve sender info
-        let sender = dictionary["sender"] as! NSDictionary
-        self.fromFullname = sender["fullname"] as? String ?? ""
-        self.fromProfileImageUrl = sender["avatarUrl"] as? String ?? ""
+        self.description = dictionary["description"] as? String ?? ""
+        self.event_url = dictionary["event_url"] as? String ?? ""
+        self.user_avatar_url = dictionary["user_avatar_url"] as? String ?? ""
+        let secondsFrom1970 = dictionary["created_at"] as? Double ?? 0
+        self.created_at = Date(timeIntervalSince1970: secondsFrom1970)
         
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import Locksmith
 
-class UserSearchController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
+class UserSearchController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UISearchBarDelegate {
     
     let httpHelper = HTTPHelper()
     let cellId = "cellId"
@@ -41,6 +41,18 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         return ml
     }()
     
+    let userInfoView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .yellow
+        return view
+    }()
+    
+    let userPreview: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        return view
+    }()
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchText.isEmpty {
@@ -59,7 +71,7 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
             messageLabel.isHidden = true
         }
         
-        self.collectionView?.reloadData()
+        collectionView.reloadData()
         
     }
     
@@ -72,25 +84,39 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
         filteredUsers = users
-        self.collectionView?.reloadData()
+        collectionView.reloadData()
     }
+    
+    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.itemSize = CGSize(width: 90, height: 120)
+        
+        collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(UserSearchCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.backgroundColor = .brown
+        self.view.addSubview(collectionView)
         
         // Reachability for checking internet connection
         NotificationCenter.default.addObserver(self, selector: #selector(reachabilityStatusChanged), name: NSNotification.Name(rawValue: "ReachStatusChanged"), object: nil)
         
         // General properties of the view
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-        collectionView?.backgroundColor = .white
-        collectionView?.alwaysBounceVertical = true
-        collectionView?.keyboardDismissMode = .onDrag
+        
+        collectionView.alwaysBounceVertical = true
+        collectionView.keyboardDismissMode = .onDrag
         navigationController?.navigationBar.addSubview(searchBar)
         navigationController?.navigationBar.barTintColor = UIColor.mainBlue()
         
-        let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
-        layout?.sectionHeadersPinToVisibleBounds = true
+//        let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
+        layout.sectionHeadersPinToVisibleBounds = true
         
         // Customize search bar fonts and colors
         for subView: UIView in searchBar.subviews {
@@ -120,9 +146,9 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         glassIconView.frame.size.height = 15
         
         // Initialize the loader and position it
-        collectionView?.addSubview(loader)
-        let indicatorYStartPosition = (navigationController?.navigationBar.frame.size.height)! + 10
-        loader.center = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: indicatorYStartPosition)
+        collectionView.addSubview(loader)
+//        let indicatorYStartPosition = (navigationController?.navigationBar.frame.size.height)! + 10
+        loader.center = CGPoint(x: UIScreen.main.bounds.size.width / 2, y: 40)
         
         // Position the searchbar
         let navBar = navigationController?.navigationBar
@@ -133,12 +159,8 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         messageLabel.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 0)
         messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        // Register customize cells
-        collectionView?.register(UserSearchCell.self, forCellWithReuseIdentifier: cellId)
-        
         // Initialize functions
         loadAllUsers()
-        
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(handleLogout))
     }
@@ -148,11 +170,11 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         
         // General properties of the view
         navigationController?.tabBarController?.tabBar.isHidden = false
-        UIApplication.shared.isStatusBarHidden = false
+        UIApplication.shared.isStatusBarHidden = true
         searchBar.isHidden = false
         
         // Register customize cells
-        collectionView?.register(UserSearchHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "searchHeaderId")
+        collectionView.register(UserSearchHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "searchHeaderId")
         
     }
     
@@ -164,7 +186,16 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func showUserStories(_ sender: UITapGestureRecognizer) {
+        
+        userPreview.removeFromSuperview()
+        
+        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        present(userProfileController, animated: true, completion: nil)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
         searchBar.isHidden = true
         searchBar.resignFirstResponder()
@@ -172,15 +203,46 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         let user = filteredUsers[indexPath.item]
         print("user selected: \(user.fullname)")
         
-        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
-        userProfileController.userId = user.id
-        userProfileController.userFullname = user.fullname
-        userProfileController.userImageUrl = user.profileImageUrl
-        userProfileController.currentUserDic = userDic
+        view.addSubview(userPreview)
+        userPreview.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 50)
+        userPreview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        userProfileController.hidesBottomBarWhenPushed = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showUserStories(_:)))
+        userPreview.addGestureRecognizer(tap)
         
-        navigationController?.pushViewController(userProfileController, animated: true)
+        
+//        view.addSubview(userInfoView)
+//        userInfoView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 20, paddingBottom: 20, paddingRight: 20, width: 0, height: 0)
+//        
+        
+//        performSegue(withIdentifier: "showUserInfo", sender: self)
+//        let myStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let userProfileController = myStoryboard.instantiateViewController(withIdentifier: "userProfileIdentifier") as! UserProfileController
+//        userProfileController.userId = user.id
+//        userProfileController.userFullname = user.fullname
+//        userProfileController.userImageUrl = user.profileImageUrl
+//        userProfileController.currentUserDic = userDic
+        
+//        userProfileController.hidesBottomBarWhenPushed = true
+//        present(userProfileController, animated: true, completion: nil)
+//        navigationController?.pushViewController(userProfileController, animated: true)
+        
+//        let userProfileController = UserProfileController()
+//        userProfileController.userId = user.id
+//        userProfileController.userFullname = user.fullname
+//        userProfileController.userImageUrl = user.profileImageUrl
+//        userProfileController.currentUserDic = userDic
+//
+//        userProfileController.hidesBottomBarWhenPushed = true
+//        //UserSearchController.rootv
+////        let navController = UINavigationController(rootViewController: userProfileController)
+//        present(userProfileController, animated: true, completion: nil)
+//        navController.pushViewController(userProfileController, animated: true)
+//        navigationController?.pushViewController(navController, animated: true)
+//
+//        present(navController, animated: true, completion: nil  )
+//        navigationController?.pushViewController(userProfileController, animated: true)
+
     }
 
     
@@ -222,7 +284,7 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
                                 self.userDic = userDictionary
                                 return
                             }
-                            let user = User(dictionary: userDictionary)
+                            let user = User(uid: userDictionary["id"] as! Int, dictionary: userDictionary)
                             self.users.append(user)
 
                         })
@@ -234,7 +296,7 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
                         })
                         
                         self.filteredUsers = self.users
-                        self.collectionView?.reloadData()
+                        self.collectionView.reloadData()
                         self.loader.stopAnimating()
                         
                     case .failure(let error):
@@ -251,11 +313,11 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredUsers.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserSearchCell
         
         cell.user = filteredUsers[indexPath.item]
@@ -303,7 +365,7 @@ class UserSearchController: UICollectionViewController, UICollectionViewDelegate
         return CGSize(width: width, height: width + 20)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "searchHeaderId", for: indexPath) as! UserSearchHeader
         header.backgroundColor = UIColor.mainBlue()

@@ -247,6 +247,13 @@ class SignUpController: UIViewController, UIImagePickerControllerDelegate, UINav
         plusPhotoButton.addGestureRecognizer(tap)
         
         setupInputFields()
+        
+        let dimisstap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(dimisstap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     fileprivate func setupInputFields() {

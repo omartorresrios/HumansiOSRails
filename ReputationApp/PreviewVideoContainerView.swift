@@ -66,7 +66,7 @@ class PreviewVideoContainerView: UIView {
             
             DispatchQueue.main.async {
                 let savedLabel = UILabel()
-                savedLabel.text = "Saved successfully"
+                savedLabel.text = "Se guardó!"
                 savedLabel.font = UIFont.boldSystemFont(ofSize: 18)
                 savedLabel.textColor = .white
                 savedLabel.numberOfLines = 0

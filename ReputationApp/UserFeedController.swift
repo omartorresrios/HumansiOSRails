@@ -31,7 +31,7 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
         tabBarController?.tabBar.isHidden = false
         
         collectionView?.register(UserFeedCell.self, forCellWithReuseIdentifier: userFeedCell)
-        getAllAvents()
+//        getAllAvents()
     }
     
     let url = URL(string: "https://protected-anchorage-18127.herokuapp.com/api/all_events")!
@@ -164,13 +164,13 @@ class UserFeedController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return 0//images.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: userFeedCell, for: indexPath) as! UserFeedCell
         
-        cell.photoImageView.image = self.images[indexPath.item]
+//        cell.photoImageView.image = self.images[indexPath.item]
         
         return cell
     }

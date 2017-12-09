@@ -20,11 +20,9 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             let startViewController = mainStoryboard.instantiateViewController(withIdentifier: "StartView")
             
             present(startViewController, animated: true, completion: nil)
-
             
             return false
         }
-            
         return true
     }
     
@@ -48,9 +46,9 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             }
         }
         
-        setupViewControllers { (success) in
-            print("setup success")
-        }
+//        setupViewControllers { (success) in
+//            print("setup success")
+//        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -58,38 +56,38 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.isHidden = false
     }
     
-    func setupViewControllers(completion: @escaping _Callback) {
-        
-        // home
-        let feedNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "happy_face_unselected"), selectedImage: #imageLiteral(resourceName: "happy_face_selected"), rootViewController: UserFeedController(collectionViewLayout: UICollectionViewFlowLayout()))
-        
-        // search
-        let searchNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: UserSearchController(collectionViewLayout: UICollectionViewFlowLayout()))
-        
-        let plusNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "gear"), selectedImage: #imageLiteral(resourceName: "dot"))
-        
-        // user ranking
-        let layout = UICollectionViewFlowLayout()
-        let userRankingController = UserRankingController(collectionViewLayout: layout)
-        
-        let userRankingNavController = UINavigationController(rootViewController: userRankingController)
-        
-        userRankingNavController.tabBarItem.image = #imageLiteral(resourceName: "ranking_unselected")
-        userRankingNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "ranking_selected")
-        
-        tabBar.tintColor = UIColor.mainBlue()
-        
-        viewControllers = [feedNavController, searchNavController, plusNavController, userRankingNavController]
-        
-        completion(true)
-        
-        //modify tab bar item insets
-        guard let items = tabBar.items else { return }
-        
-        for item in items {
-            item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
-        }
-    }
+//    func setupViewControllers(completion: @escaping _Callback) {
+//
+//        // home
+//        let feedNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "happy_face_unselected"), selectedImage: #imageLiteral(resourceName: "happy_face_selected"), rootViewController: UserFeedController(collectionViewLayout: UICollectionViewFlowLayout()))
+//
+//        // search
+////        let searchNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "search_unselected"), selectedImage: #imageLiteral(resourceName: "search_selected"), rootViewController: UserSearchController(collectionViewLayout: UICollectionViewFlowLayout()))
+//
+//        let plusNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "gear"), selectedImage: #imageLiteral(resourceName: "dot"))
+//
+//        // user ranking
+//        let layout = UICollectionViewFlowLayout()
+//        let myProfileController = MyProfileController(collectionViewLayout: layout)
+//
+//        let myProfileNavController = UINavigationController(rootViewController: myProfileController)
+//
+//        myProfileNavController.tabBarItem.image = #imageLiteral(resourceName: "ranking_unselected")
+//        myProfileNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "ranking_selected")
+//
+//        tabBar.tintColor = UIColor.mainBlue()
+//
+//        viewControllers = [feedNavController, searchNavController, plusNavController, myProfileNavController]
+//
+//        completion(true)
+//
+//        //modify tab bar item insets
+//        guard let items = tabBar.items else { return }
+//
+//        for item in items {
+//            item.imageInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
+//        }
+//    }
     
     
     

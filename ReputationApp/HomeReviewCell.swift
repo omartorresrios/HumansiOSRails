@@ -15,13 +15,13 @@ class HomeReviewCell: UICollectionViewCell {
     var review: Review? {
         didSet {
             
-            guard let profileImageUrl = review?.fromProfileImageUrl else { return }
+//            guard let profileImageUrl = review?.fromProfileImageUrl else { return }
             
-            if profileImageUrl == "" {
-                userProfileImageView.image = #imageLiteral(resourceName: "humans_icon")
-            } else {
-                userProfileImageView.loadImage(urlString: profileImageUrl)
-            }
+//            if profileImageUrl == "" {
+//                userProfileImageView.image = #imageLiteral(resourceName: "humans_icon")
+//            } else {
+//                userProfileImageView.loadImage(urlString: profileImageUrl)
+//            }
             
             setupAttributedContent()
             
@@ -38,19 +38,19 @@ class HomeReviewCell: UICollectionViewCell {
     }
     
     fileprivate func setupAttributedContent() {
-        guard let review = self.review else { return }
-        
-        guard let nameFont = UIFont(name: "SFUIDisplay-Semibold", size: 14) else { return }
-        guard let spaceFont = UIFont(name: "SFUIDisplay-Regular", size: 4) else { return }
-        guard let contentFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
-        
-        let attributedText = NSMutableAttributedString(string: review.fromFullname, attributes: [NSFontAttributeName: nameFont])
-        
-        attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: spaceFont]))
-        
-        attributedText.append(NSAttributedString(string: "\(review.content)", attributes: [NSFontAttributeName: contentFont]))
-        
-        captionLabel.attributedText = attributedText
+//        guard let review = self.review else { return }
+//
+//        guard let nameFont = UIFont(name: "SFUIDisplay-Semibold", size: 14) else { return }
+//        guard let spaceFont = UIFont(name: "SFUIDisplay-Regular", size: 4) else { return }
+//        guard let contentFont = UIFont(name: "SFUIDisplay-Regular", size: 14) else { return }
+//
+////        let attributedText = NSMutableAttributedString(string: review.fromFullname, attributes: [NSFontAttributeName: nameFont])
+//
+//        attributedText.append(NSAttributedString(string: "\n\n", attributes: [NSFontAttributeName: spaceFont]))
+//
+//        attributedText.append(NSAttributedString(string: "\(review.content)", attributes: [NSFontAttributeName: contentFont]))
+//
+//        captionLabel.attributedText = attributedText
         
     }
     

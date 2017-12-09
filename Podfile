@@ -12,5 +12,7 @@ target 'ReputationApp' do
   pod "SwiftyCam"
   pod 'PageMenu'
   pod 'UICircularProgressRing'
+  pod "ROThumbnailGenerator"
+  pod 'SDWebImage', '~> 4.0'
 
 end

@@ -465,6 +465,7 @@ open class SwiftyCamViewController: UIViewController {
 	*/
 
 	public func startVideoRecording() {
+        
 		guard let movieFileOutput = self.movieFileOutput else {
 			return
 		}
@@ -502,6 +503,7 @@ open class SwiftyCamViewController: UIViewController {
 				let outputFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((outputFileName as NSString).appendingPathExtension("mov")!)
 				movieFileOutput.startRecording(toOutputFileURL: URL(fileURLWithPath: outputFilePath), recordingDelegate: self)
 				self.isVideoRecording = true
+                
 				DispatchQueue.main.async {
 					self.cameraDelegate?.swiftyCam(self, didBeginRecordingVideo: self.currentCamera)
 				}
@@ -1015,9 +1017,17 @@ extension SwiftyCamViewController : SwiftyCamButtonDelegate {
 
 	/// Set UILongPressGesture start to begin video
 
-	public func buttonDidBeginLongPress() {
-		startVideoRecording()
-	}
+    public func buttonDidBeginLongPress() {
+        startVideoRecording()
+    }
+    
+    public func buttonDidChangedLongPress() {
+        print("jujuju")
+        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
+        panGesture.delegate = self
+//        self.view.addGestureRecognizer(panGesture)
+        previewLayer.addGestureRecognizer(panGesture)
+    }
 
 	/// Set UILongPressGesture begin to begin end video
 
@@ -1039,20 +1049,67 @@ extension SwiftyCamViewController : AVCaptureFileOutputRecordingDelegate {
 
 	/// Process newly captured video and write it to temporary directory
 
+    func compressVideo(inputURL: URL, outputURL: URL, handler:@escaping (_ exportSession: AVAssetExportSession?)-> Void) {
+        let urlAsset = AVURLAsset(url: inputURL, options: nil)
+        guard let exportSession = AVAssetExportSession(asset: urlAsset, presetName: AVAssetExportPresetMediumQuality) else {
+            handler(nil)
+            
+            return
+        }
+        
+        exportSession.outputURL = outputURL
+        exportSession.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession.shouldOptimizeForNetworkUse = true
+        exportSession.exportAsynchronously { () -> Void in
+            handler(exportSession)
+        }
+    }
+    
 	public func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
 		if let currentBackgroundRecordingID = backgroundRecordingID {
 			backgroundRecordingID = UIBackgroundTaskInvalid
-
 			if currentBackgroundRecordingID != UIBackgroundTaskInvalid {
 				UIApplication.shared.endBackgroundTask(currentBackgroundRecordingID)
 			}
 		}
+        
+        guard let data = NSData(contentsOf: outputFileURL as URL) else {
+            return
+        }
+        
+        print("File size before compression: \(Double(data.length / 1048576)) mb")
+        let compressedURL = NSURL.fileURL(withPath: NSTemporaryDirectory() + NSUUID().uuidString + ".m4v")
+        compressVideo(inputURL: outputFileURL as URL, outputURL: compressedURL) { (exportSession) in
+            guard let session = exportSession else {
+                return
+            }
+            
+            switch session.status {
+            case .unknown:
+                break
+            case .waiting:
+                break
+            case .exporting:
+                break
+            case .completed:
+                guard let compressedData = NSData(contentsOf: compressedURL) else {
+                    return
+                }
+                
+                print("File size after compression: \(Double(compressedData.length / 1048576)) mb")
+            case .failed:
+                break
+            case .cancelled:
+                break
+            }
+        }
+        
 		if error != nil {
 			print("[SwiftyCam]: Movie file finishing error: \(error)")
 		} else {
 			//Call delegate function with the URL of the outputfile
 			DispatchQueue.main.async {
-				self.cameraDelegate?.swiftyCam(self, didFinishProcessVideoAt: outputFileURL)
+				self.cameraDelegate?.swiftyCam(self, didFinishProcessVideoAt: compressedURL)
 			}
 		}
 	}
@@ -1135,7 +1192,7 @@ extension SwiftyCamViewController {
 		switchCamera()
 	}
     
-    @objc private func panGesture(pan: UIPanGestureRecognizer) {
+    @objc func panGesture(pan: UIPanGestureRecognizer) {
         
         guard swipeToZoom == true && self.currentCamera == .rear else {
             //ignore pan
@@ -1199,9 +1256,9 @@ extension SwiftyCamViewController {
 		doubleTapGesture.delegate = self
 		previewLayer.addGestureRecognizer(doubleTapGesture)
         
-        panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
+        /*panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGesture(pan:)))
         panGesture.delegate = self
-        previewLayer.addGestureRecognizer(panGesture)
+        self.view.addGestureRecognizer(panGesture)*/
 	}
 }
 

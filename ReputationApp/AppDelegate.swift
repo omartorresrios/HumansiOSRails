@@ -28,11 +28,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.statusBarStyle = .lightContent
         
-//        window = UIWindow()
-//        window?.rootViewController = MainTabBarController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "StartView")
-        self.window?.rootViewController = homeVC
+        let left = storyboard.instantiateViewController(withIdentifier: "left")
+        let middle = storyboard.instantiateViewController(withIdentifier: "middle")
+        let right = storyboard.instantiateViewController(withIdentifier: "right")
+        
+        let snapContainer = SnapContainerViewController.containerViewWith(left,
+                                                                          middleVC: middle,
+                                                                          rightVC: right)
+        
+        self.window?.rootViewController = snapContainer
+        self.window?.makeKeyAndVisible()
         
         return true
     }
