@@ -25,85 +25,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBv-cZ-jP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3674" y="723"/>
-        </scene>
-        <!--Main Tab Bar Controller-->
-        <scene sceneID="HOf-xA-C2Y">
-            <objects>
-                <tabBarController id="c1A-68-H9j" customClass="MainTabBarController" customModule="ReputationApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="niD-zW-94h">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vMo-oc-lq6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3454" y="1712"/>
-        </scene>
-        <!--My Profile View Controller-->
-        <scene sceneID="raT-DR-bty">
-            <objects>
-                <viewController id="X3w-A7-7Dh" customClass="MyProfileViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="O2X-WW-spU"/>
-                        <viewControllerLayoutGuide type="bottom" id="mdG-tm-qAi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QKw-Wg-rLP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgn-ej-K6L">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </scrollView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="bgn-ej-K6L" firstAttribute="centerX" secondItem="QKw-Wg-rLP" secondAttribute="centerX" id="IZk-GP-hrx"/>
-                            <constraint firstItem="bgn-ej-K6L" firstAttribute="height" secondItem="QKw-Wg-rLP" secondAttribute="height" id="aXC-xx-vIE"/>
-                            <constraint firstItem="bgn-ej-K6L" firstAttribute="width" secondItem="QKw-Wg-rLP" secondAttribute="width" id="bHr-be-fdH"/>
-                            <constraint firstItem="bgn-ej-K6L" firstAttribute="centerY" secondItem="QKw-Wg-rLP" secondAttribute="centerY" id="kS0-H9-sDQ"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="txo-d1-L4C"/>
-                    <connections>
-                        <outlet property="scrollView" destination="bgn-ej-K6L" id="c1T-uK-LEZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S8S-Fa-HX6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2487" y="-662"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="OZm-Og-SIf">
-            <objects>
-                <viewController id="mUd-Ew-c1F" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="N9H-J2-Tu1"/>
-                        <viewControllerLayoutGuide type="bottom" id="Dow-5u-PFd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KGl-cB-wgX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKI-El-xfL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="KKI-El-xfL" firstAttribute="height" secondItem="KGl-cB-wgX" secondAttribute="height" id="939-S9-bV0"/>
-                            <constraint firstItem="KKI-El-xfL" firstAttribute="centerY" secondItem="KGl-cB-wgX" secondAttribute="centerY" id="AJK-Fh-Bj9"/>
-                            <constraint firstItem="KKI-El-xfL" firstAttribute="centerX" secondItem="KGl-cB-wgX" secondAttribute="centerX" id="BCd-16-PRf"/>
-                            <constraint firstItem="KKI-El-xfL" firstAttribute="width" secondItem="KGl-cB-wgX" secondAttribute="width" id="jfc-0Q-Lrf"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="scrollView" destination="KKI-El-xfL" id="0It-8n-RUv"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AJA-Kp-Xr7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-567" y="-149"/>
+            <point key="canvasLocation" x="2934" y="723"/>
         </scene>
         <!--My Profile Controller-->
         <scene sceneID="axA-T6-l80">
@@ -140,7 +62,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wsf-M8-QP5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="556" y="722.78860569715152"/>
+            <point key="canvasLocation" x="382" y="723"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xYI-Yf-B1W">
@@ -178,25 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sCq-fG-Zqw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2426" y="722"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="iDy-fg-qYd">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qq3-ay-orn" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F8g-Ti-vzG">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="X3w-A7-7Dh" kind="relationship" relationship="rootViewController" id="knh-2n-6HV"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dZI-Di-n62" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1756" y="-662"/>
+            <point key="canvasLocation" x="2151" y="723"/>
         </scene>
     </scenes>
 </document>

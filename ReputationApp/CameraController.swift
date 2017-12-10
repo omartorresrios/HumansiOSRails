@@ -15,7 +15,6 @@ import Locksmith
 
 class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate, AVCapturePhotoCaptureDelegate {
     
-    
     let cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = UIColor.darkGray
@@ -156,25 +155,6 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         allowAutoRotate = false
         audioEnabled = true
         
-//        let right = self.storyboard?.instantiateViewController(withIdentifier: "right") as UIViewController!
-//        self.addChildViewController(right!)
-//        self.scrollView.addSubview(right!.view)
-//        right!.didMove(toParentViewController: self)
-//        right!.view.frame = self.scrollView.bounds
-//
-//        let left = self.storyboard?.instantiateViewController(withIdentifier: "left") as UIViewController!
-//        self.addChildViewController(left!)
-//        self.scrollView.addSubview(left!.view)
-//        left!.didMove(toParentViewController: self)
-//        left!.view.frame = self.scrollView.bounds
-//
-//        var leftFrame: CGRect = left!.view.frame
-//        leftFrame.origin.x = 2 * self.view.frame.width
-//        left!.view.frame = leftFrame
-//
-//        self.scrollView.contentSize = CGSize(width: (self.view.frame.width) * 3, height: self.view.frame.height)
-//        self.scrollView.contentOffset = CGPoint(x: (self.view.frame.width) * 1, y: self.view.frame.height)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -188,7 +168,6 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
     }
     
     func setupViews() {
-        
         view.addSubview(cancelButton)
         cancelButton.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
         
@@ -197,7 +176,6 @@ class CameraController: SwiftyCamViewController, SwiftyCamViewControllerDelegate
         
         view.addSubview(nextButton)
         nextButton.anchor(top: nil, left: nil, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 24, paddingRight: 24, width: 0, height: 50)
-        
     }
     
     func swiftyCam(_ swiftyCam: SwiftyCamViewController, didTake photo: UIImage) {

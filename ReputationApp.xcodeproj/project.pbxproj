@@ -15,7 +15,6 @@
 		A07B3BC61ED7810E00F10657 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BC51ED7810E00F10657 /* Constants.swift */; };
 		A07B3BCC1ED8C66000F10657 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BCB1ED8C66000F10657 /* Extensions.swift */; };
 		A07B3BD41ED8C98600F10657 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BD31ED8C98600F10657 /* CustomImageView.swift */; };
-		A07B3BD91ED8DA5200F10657 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */; };
 		A07B3C371ED91DCC00F10657 /* UserSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C361ED91DCC00F10657 /* UserSearchController.swift */; };
 		A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C3A1ED91EDB00F10657 /* SignUpController.swift */; };
 		A07B3C3E1EDB82FD00F10657 /* UserSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B3C3D1EDB82FD00F10657 /* UserSearchCell.swift */; };
@@ -28,7 +27,6 @@
 		A07B95871F2D9FBE008E9EA0 /* SF-UI-Display-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A07B95811F2D9FBD008E9EA0 /* SF-UI-Display-Regular.otf */; };
 		A07B95881F2D9FBE008E9EA0 /* SF-UI-Display-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A07B95821F2D9FBD008E9EA0 /* SF-UI-Display-Semibold.otf */; };
 		A07B95891F2D9FBE008E9EA0 /* SF-UI-Display-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A07B95831F2D9FBD008E9EA0 /* SF-UI-Display-Thin.otf */; };
-		A07B958C1F2E4A34008E9EA0 /* AddPeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B958B1F2E4A34008E9EA0 /* AddPeopleController.swift */; };
 		A07B958E1F2E84CE008E9EA0 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B958D1F2E84CE008E9EA0 /* Reachability.swift */; };
 		A07B95901F2E9062008E9EA0 /* HomeReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B958F1F2E9062008E9EA0 /* HomeReviewCell.swift */; };
 		A07B95921F2E90B5008E9EA0 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07B95911F2E90B5008E9EA0 /* Review.swift */; };
@@ -76,7 +74,6 @@
 		A07B3BC51ED7810E00F10657 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A07B3BCB1ED8C66000F10657 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		A07B3BD31ED8C98600F10657 /* CustomImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
-		A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainTabBarController.swift; path = ReputationApp/MainTabBarController.swift; sourceTree = "<group>"; };
 		A07B3C361ED91DCC00F10657 /* UserSearchController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchController.swift; sourceTree = "<group>"; };
 		A07B3C3A1ED91EDB00F10657 /* SignUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		A07B3C3D1EDB82FD00F10657 /* UserSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSearchCell.swift; sourceTree = "<group>"; };
@@ -90,7 +87,6 @@
 		A07B95811F2D9FBD008E9EA0 /* SF-UI-Display-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Regular.otf"; sourceTree = "<group>"; };
 		A07B95821F2D9FBD008E9EA0 /* SF-UI-Display-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Semibold.otf"; sourceTree = "<group>"; };
 		A07B95831F2D9FBD008E9EA0 /* SF-UI-Display-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-UI-Display-Thin.otf"; sourceTree = "<group>"; };
-		A07B958B1F2E4A34008E9EA0 /* AddPeopleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPeopleController.swift; sourceTree = "<group>"; };
 		A07B958D1F2E84CE008E9EA0 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		A07B958F1F2E9062008E9EA0 /* HomeReviewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeReviewCell.swift; sourceTree = "<group>"; };
 		A07B95911F2E90B5008E9EA0 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
@@ -234,7 +230,7 @@
 			name = Search;
 			sourceTree = "<group>";
 		};
-		A07B957D1F2D9F7B008E9EA0 /* Utils */ = {
+		A07B957D1F2D9F7B008E9EA0 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
 				A07B957E1F2D9FBD008E9EA0 /* SF-UI-Display-Bold.otf */,
@@ -244,15 +240,7 @@
 				A07B95821F2D9FBD008E9EA0 /* SF-UI-Display-Semibold.otf */,
 				A07B95831F2D9FBD008E9EA0 /* SF-UI-Display-Thin.otf */,
 			);
-			name = Utils;
-			sourceTree = "<group>";
-		};
-		A07B958A1F2E49FE008E9EA0 /* AddPeople */ = {
-			isa = PBXGroup;
-			children = (
-				A07B958B1F2E4A34008E9EA0 /* AddPeopleController.swift */,
-			);
-			name = AddPeople;
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		A07BD4C61F1EB05100A4ED14 /* Models */ = {
@@ -267,6 +255,7 @@
 		A09EEB641F84646F009836DC /* StartView */ = {
 			isa = PBXGroup;
 			children = (
+				A03985381F8BCC000025A7AB /* CameraController.swift */,
 				A0EF64141EC40757006609F7 /* Main.storyboard */,
 			);
 			name = StartView;
@@ -275,7 +264,6 @@
 		A09EEB691F867BFF009836DC /* VideoPhotoContent */ = {
 			isa = PBXGroup;
 			children = (
-				A03985381F8BCC000025A7AB /* CameraController.swift */,
 				A039853E1F8D1E5A0025A7AB /* Transition */,
 				A039853C1F8D1E4C0025A7AB /* Previews */,
 			);
@@ -306,7 +294,6 @@
 			children = (
 				A0EF64391EC40C0E006609F7 /* Security.framework */,
 				A0EF640F1EC40757006609F7 /* ReputationApp */,
-				A07B3BD81ED8DA5200F10657 /* MainTabBarController.swift */,
 				A0EF64101EC40757006609F7 /* AppDelegate.swift */,
 				A0D0542C1FDB6BF300C738F5 /* SnapContainerViewController.swift */,
 				A0D0542D1FDB6BF300C738F5 /* VerticalScrollViewController.swift */,
@@ -334,7 +321,6 @@
 				A09EEB641F84646F009836DC /* StartView */,
 				A09EEB691F867BFF009836DC /* VideoPhotoContent */,
 				A03985401F8D1E950025A7AB /* PhotoLibraryContent */,
-				A07B958A1F2E49FE008E9EA0 /* AddPeople */,
 				A07B957A1F2693CE008E9EA0 /* ReputationApp.entitlements */,
 				A0EF64221EC407B2006609F7 /* Login/SignUp */,
 				A07B3C3C1EDB82E800F10657 /* Search */,
@@ -342,7 +328,6 @@
 				A07BD4C61F1EB05100A4ED14 /* Models */,
 				A07B3BBE1ED77C4100F10657 /* Services */,
 				A0F36A391ECA154F0072B5DD /* AESCrypt */,
-				A07B957D1F2D9F7B008E9EA0 /* Utils */,
 				A0EF64251EC40839006609F7 /* Supporting files */,
 				A09EEB7C1F86BA09009836DC /* FeedViewController.swift */,
 				A0EF9F541F9076CA00B53FA2 /* CircleView.swift */,
@@ -363,6 +348,7 @@
 			isa = PBXGroup;
 			children = (
 				A039853F1F8D1E710025A7AB /* Custom segues */,
+				A07B957D1F2D9F7B008E9EA0 /* Fonts */,
 				A07B958D1F2E84CE008E9EA0 /* Reachability.swift */,
 				A0EF64281EC40905006609F7 /* KeyChainAccess.swift */,
 				A0EF642A1EC40946006609F7 /* HTTPHelper.swift */,
@@ -558,7 +544,6 @@
 				A07B957C1F2D82F8008E9EA0 /* UserSearchHeader.swift in Sources */,
 				A0F36A431ECA154F0072B5DD /* NSData+Base64.m in Sources */,
 				A0EF64241EC407D7006609F7 /* LoginController.swift in Sources */,
-				A07B958C1F2E4A34008E9EA0 /* AddPeopleController.swift in Sources */,
 				A07B3C401EDB83EE00F10657 /* UserProfileController.swift in Sources */,
 				A09EEB851F8729D1009836DC /* SegueFromBottom.swift in Sources */,
 				A07B958E1F2E84CE008E9EA0 /* Reachability.swift in Sources */,
@@ -567,7 +552,6 @@
 				A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */,
 				A0D0542B1FDB54D000C738F5 /* MyProfileCell.swift in Sources */,
 				A039853B1F8BEECE0025A7AB /* PreviewVideoContainerView.swift in Sources */,
-				A07B3BD91ED8DA5200F10657 /* MainTabBarController.swift in Sources */,
 				A0D0542E1FDB6BF400C738F5 /* SnapContainerViewController.swift in Sources */,
 				A03985391F8BCC000025A7AB /* CameraController.swift in Sources */,
 				A070FE1D1FA11C9500488431 /* MyProfileController.swift in Sources */,

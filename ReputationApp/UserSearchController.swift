@@ -16,7 +16,7 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
     let cellId = "cellId"
     var filteredUsers = [User]()
     var users = [User]()
-    var userDic = [String: Any]()
+    var currentUserDic = [String: Any]()
     
     lazy var searchBar: UISearchBar = {
         let sb = UISearchBar()
@@ -191,9 +191,17 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         userPreview.removeFromSuperview()
         
         let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        userProfileController.userId = userSelected.id
+        userProfileController.userFullname = userSelected.fullname
+        userProfileController.userImageUrl = userSelected.profileImageUrl
+        userProfileController.currentUserDic = currentUserDic
+        
         present(userProfileController, animated: true, completion: nil)
         
     }
+    
+    var userSelected: User!
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 
@@ -201,6 +209,7 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         searchBar.resignFirstResponder()
         
         let user = filteredUsers[indexPath.item]
+        userSelected = user
         print("user selected: \(user.fullname)")
         
         view.addSubview(userPreview)
@@ -209,43 +218,9 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(showUserStories(_:)))
         userPreview.addGestureRecognizer(tap)
-        
-        
-//        view.addSubview(userInfoView)
-//        userInfoView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 20, paddingLeft: 20, paddingBottom: 20, paddingRight: 20, width: 0, height: 0)
-//        
-        
-//        performSegue(withIdentifier: "showUserInfo", sender: self)
-//        let myStoryboard = UIStoryboard(name: "Main", bundle: nil)
-//        let userProfileController = myStoryboard.instantiateViewController(withIdentifier: "userProfileIdentifier") as! UserProfileController
-//        userProfileController.userId = user.id
-//        userProfileController.userFullname = user.fullname
-//        userProfileController.userImageUrl = user.profileImageUrl
-//        userProfileController.currentUserDic = userDic
-        
-//        userProfileController.hidesBottomBarWhenPushed = true
-//        present(userProfileController, animated: true, completion: nil)
-//        navigationController?.pushViewController(userProfileController, animated: true)
-        
-//        let userProfileController = UserProfileController()
-//        userProfileController.userId = user.id
-//        userProfileController.userFullname = user.fullname
-//        userProfileController.userImageUrl = user.profileImageUrl
-//        userProfileController.currentUserDic = userDic
-//
-//        userProfileController.hidesBottomBarWhenPushed = true
-//        //UserSearchController.rootv
-////        let navController = UINavigationController(rootViewController: userProfileController)
-//        present(userProfileController, animated: true, completion: nil)
-//        navController.pushViewController(userProfileController, animated: true)
-//        navigationController?.pushViewController(navController, animated: true)
-//
-//        present(navController, animated: true, completion: nil  )
-//        navigationController?.pushViewController(userProfileController, animated: true)
 
     }
 
-    
     func loadAllUsers() {
         // Check for internet connection
         if (reachability?.isReachable)! {
@@ -281,7 +256,7 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
                             
                             if userDictionary["id"] as! Int == userId {
                                 print("Found myself, omit from list")
-                                self.userDic = userDictionary
+                                self.currentUserDic = userDictionary
                                 return
                             }
                             let user = User(uid: userDictionary["id"] as! Int, dictionary: userDictionary)
@@ -341,17 +316,7 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         defaults.removeObject(forKey: "userLoggedIn")
         defaults.synchronize()
     }
-    
-    func goToAddPeopleController() {
-        searchBar.isHidden = true
-        searchBar.resignFirstResponder()
-        
-        let addPeopleController = AddPeopleController(collectionViewLayout: UICollectionViewFlowLayout())
-        addPeopleController.hidesBottomBarWhenPushed = true
-        
-        navigationController?.pushViewController(addPeopleController, animated: true)
-    }
-    
+  
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
@@ -370,7 +335,6 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "searchHeaderId", for: indexPath) as! UserSearchHeader
         header.backgroundColor = UIColor.mainBlue()
         
-        header.addPeopleButton.addTarget(self, action: #selector(goToAddPeopleController), for: .touchUpInside)
         return header
     }
     
