@@ -17,6 +17,8 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
     var filteredUsers = [User]()
     var users = [User]()
     var currentUserDic = [String: Any]()
+    var collectionView: UICollectionView!
+    var userSelected: User!
     
     lazy var searchBar: UISearchBar = {
         let sb = UISearchBar()
@@ -43,14 +45,35 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
     
     let userInfoView: UIView = {
         let view = UIView()
-        view.backgroundColor = .yellow
+        view.backgroundColor = .lightGray
         return view
     }()
     
-    let userPreview: UIView = {
-        let view = UIView()
-        view.backgroundColor = .black
-        return view
+    let storiesOptionButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("stories", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self, action: #selector(showUserStoriesView), for: .touchUpInside)
+        button.backgroundColor = .yellow
+        return button
+    }()
+
+    let reviewsOptionButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("reviews", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self, action: #selector(showUserReviewsView), for: .touchUpInside)
+        button.backgroundColor = .yellow
+        return button
+    }()
+
+    let writeReviewOptionButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("deja un review", for: .normal)
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self, action: #selector(showWriteReviewView), for: .touchUpInside)
+        button.backgroundColor = .yellow
+        return button
     }()
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -86,8 +109,6 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         filteredUsers = users
         collectionView.reloadData()
     }
-    
-    var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -160,7 +181,7 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         // Initialize functions
-        loadAllUsers()
+//        loadAllUsers()
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(handleLogout))
     }
@@ -182,15 +203,10 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         print("Checking connectivity...")
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-    }
-    
-    func showUserStories(_ sender: UITapGestureRecognizer) {
+    func showUserStoriesView() {
+        userInfoView.removeFromSuperview()
         
-        userPreview.removeFromSuperview()
-        
-        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()) // CAMABIRLE EL NOMBRE AL CONTROLLER
         
         userProfileController.userId = userSelected.id
         userProfileController.userFullname = userSelected.fullname
@@ -198,27 +214,20 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         userProfileController.currentUserDic = currentUserDic
         
         present(userProfileController, animated: true, completion: nil)
-        
     }
     
-    var userSelected: User!
+    func showUserReviewsView() {
+        userInfoView.removeFromSuperview()
+        
+        let userReviewsController = UserReviewsController(collectionViewLayout: UICollectionViewFlowLayout())
+        present(userReviewsController, animated: true, completion: nil)
+    }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-        searchBar.isHidden = true
-        searchBar.resignFirstResponder()
+    func showWriteReviewView() {
+        userInfoView.removeFromSuperview()
         
-        let user = filteredUsers[indexPath.item]
-        userSelected = user
-        print("user selected: \(user.fullname)")
-        
-        view.addSubview(userPreview)
-        userPreview.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 50)
-        userPreview.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(showUserStories(_:)))
-        userPreview.addGestureRecognizer(tap)
-
+        let writeReviewController = WriteReviewController(collectionViewLayout: UICollectionViewFlowLayout())
+        present(writeReviewController, animated: true, completion: nil)
     }
 
     func loadAllUsers() {
@@ -288,17 +297,6 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return filteredUsers.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserSearchCell
-        
-        cell.user = filteredUsers[indexPath.item]
-        
-        return cell
-    }
     
     func handleLogout() {
         
@@ -315,6 +313,47 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: "userLoggedIn")
         defaults.synchronize()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        searchBar.isHidden = true
+        searchBar.resignFirstResponder()
+        
+        let user = filteredUsers[indexPath.item]
+        userSelected = user
+        print("user selected: \(user.fullname)")
+        
+        view.addSubview(userInfoView)
+        userInfoView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 10, width: 0, height: 50)
+        userInfoView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        
+        let stackView = UIStackView(arrangedSubviews: [storiesOptionButton, reviewsOptionButton, writeReviewOptionButton])
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        
+        userInfoView.addSubview(stackView)
+        stackView.anchor(top: userInfoView.topAnchor, left: userInfoView.leftAnchor, bottom: userInfoView.bottomAnchor, right: userInfoView.rightAnchor, paddingTop: 10, paddingLeft: 20, paddingBottom: 10, paddingRight: 20, width: 0, height: 0)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filteredUsers.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserSearchCell
+        
+        cell.user = filteredUsers[indexPath.item]
+        
+        return cell
     }
   
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

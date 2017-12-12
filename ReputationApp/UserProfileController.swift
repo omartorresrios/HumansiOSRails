@@ -49,19 +49,6 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
 //
 //    var collectionView: UICollectionView!
     
-    let button: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .red
-        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
-        return button
-    }()
-    
-    func handleBack() {
-        dismiss(animated: true, completion: nil)
-//        self.presentingViewController?.dismiss(animated: true, completion: nil)
-//        dismiss(animated: true, completion: nil)
-    }
-    
     // define a variable to store initial touch position
     var initialTouchPoint: CGPoint = CGPoint(x: 0,y: 0)
     
@@ -90,13 +77,8 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.backgroundColor = .white
         navigationController?.navigationBar.isHidden = false
         
-        
         let tapGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:)))
         view.addGestureRecognizer(tapGesture)
-        
-        
-        view.addSubview(button)
-        button.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 4, paddingBottom: 0, paddingRight: 0, width: 50, height: 50)
         
         print("userId: ", userId)
         print("userFullname: ", userFullname)

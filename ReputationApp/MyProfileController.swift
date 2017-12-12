@@ -8,6 +8,7 @@
 
 import UIKit
 import Locksmith
+import Alamofire
 
 private let reuseIdentifier = "Cell"
 
@@ -38,6 +39,7 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(handleLogout))
     
+        loadEvents()
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -50,6 +52,32 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
     
     
         return cell
+    }
+    
+    func loadEvents() {
+        // Retreieve Auth_Token from Keychain
+        if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
+            
+            let authToken = userToken["authenticationToken"] as! String
+            
+            print("Token: \(userToken)")
+            
+            // Set Authorization header
+            let header = ["Authorization": "Token token=\(authToken)"]
+            
+            print("THE HEADER: \(header)")
+            
+            Alamofire.request("https://protected-anchorage-18127.herokuapp.com/api/events", method: .get, parameters: nil, encoding: URLEncoding.default, headers: header).responseJSON { (response) in
+                switch response.result {
+                case .success(let JSON):
+                    print("THE EVENTS: \(JSON)")
+                    
+                case .failure(let error):
+                    print("Some error ocurred:", error)
+                }
+            }
+        }
+        
     }
 
     func handleLogout() {

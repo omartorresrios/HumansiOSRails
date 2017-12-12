@@ -9,24 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--User Profile Controller-->
-        <scene sceneID="Acr-lp-bBw">
-            <objects>
-                <viewController storyboardIdentifier="userProfileIdentifier" modalPresentationStyle="overFullScreen" id="6gq-0n-b2V" customClass="UserProfileController" customModule="ReputationApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="O1b-DQ-QLq"/>
-                        <viewControllerLayoutGuide type="bottom" id="sVR-mF-YyU"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="FbG-Iw-GFh">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OBv-cZ-jP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2934" y="723"/>
-        </scene>
         <!--My Profile Controller-->
         <scene sceneID="axA-T6-l80">
             <objects>
@@ -94,9 +76,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <navigationItem key="navigationItem" id="S1E-y8-9el"/>
-                    <connections>
-                        <segue destination="6gq-0n-b2V" kind="show" identifier="aja" id="OGv-XR-8Cg"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sCq-fG-Zqw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
