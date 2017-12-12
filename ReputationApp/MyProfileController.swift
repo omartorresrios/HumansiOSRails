@@ -17,6 +17,34 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
     var collectionView: UICollectionView!
     let cellId = "cellId"
     
+    let storiesOptionButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.setTitle("Momentos", for: .normal)
+        button.addTarget(self, action: #selector(showUserStoriesView), for: .touchUpInside)
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
+    let reviewsOptionButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.setTitle("Reseñas", for: .normal)
+        button.addTarget(self, action: #selector(showUserReviewsView), for: .touchUpInside)
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
+    func showUserReviewsView() {
+        let userReviewsController = UserReviewsController(collectionViewLayout: UICollectionViewFlowLayout())
+        present(userReviewsController, animated: true, completion: nil)
+    }
+    
+    func showUserStoriesView() {
+        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()) // CAMABIRLE EL NOMBRE AL CONTROLLER
+        present(userProfileController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,9 +67,25 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(handleLogout))
     
+        setupOptionsButtons()
+        
         loadEvents()
     }
 
+    fileprivate func setupOptionsButtons() {
+        let stackView = UIStackView(arrangedSubviews: [storiesOptionButton, reviewsOptionButton])
+        
+        stackView.axis = .horizontal
+        stackView.spacing = 10
+        stackView.distribution = .fillEqually
+        
+        view.addSubview(stackView)
+        stackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: 50)
+        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        stackView.backgroundColor = .black
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return 0
@@ -49,7 +93,6 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! MyProfileCell
-    
     
         return cell
     }
