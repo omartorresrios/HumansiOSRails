@@ -12,13 +12,21 @@ import JDStatusBarNotification
 class WriteReviewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     
     var userReceiverId: String?
-    
     var userReceiverFullname: String?
-    
     var userReceiverImageUrl: String?
+    
+    var userId: Int?
+    var userFullname: String?
+    var userImageUrl: String?
+    var currentUserDic = [String: Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("userId: ", userId)
+        print("userFullname: ", userFullname)
+        print("userImageUrl: ", userImageUrl)
+        print("currentUserDic: ", currentUserDic)
         
         // General properties of the view
         collectionView?.backgroundColor = .cyan//UIColor.rgb(red: 247, green: 247, blue: 247)

@@ -14,5 +14,7 @@ target 'ReputationApp' do
   pod 'UICircularProgressRing'
   pod "ROThumbnailGenerator"
   pod 'SDWebImage', '~> 4.0'
+  pod "HanekeSwift", :git => 'https://github.com/Haneke/HanekeSwift.git', :branch => 'feature/swift-3'
+  pod 'SCRecorder'
 
 end

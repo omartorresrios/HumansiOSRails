@@ -7,20 +7,102 @@
 //
 
 import UIKit
-
-private let reuseIdentifier = "Cell"
+import Locksmith
+import Alamofire
+import Haneke
+import MediaPlayer
+import SCRecorder
+import SDWebImage
+import ROThumbnailGenerator
 
 class UserStoriesController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    var userId: Int?
+    var userFullname: String?
+    var userImageUrl: String?
+    var currentUserDic = [String: Any]()
+    var images: [NSURL] = []
+    let userFeedCell = "userFeedCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = .lightGray
+        collectionView?.backgroundColor = .white
 
         // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView?.register(UserFeedCell.self, forCellWithReuseIdentifier: userFeedCell)
 
         let tapGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:)))
         view.addGestureRecognizer(tapGesture)
+        
+        loadUserEvents()
+        
+    }
+    
+    func loadUserEvents() {
+        // Retreieve Auth_Token from Keychain
+        if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
+            
+            let authToken = userToken["authenticationToken"] as! String
+            
+            print("Token: \(userToken)")
+            
+            // Set Authorization header
+            let header = ["Authorization": "Token token=\(authToken)"]
+            
+            print("THE HEADER: \(header)")
+            
+            Alamofire.request("https://protected-anchorage-18127.herokuapp.com/api/\(userFullname!)/events", method: .get, parameters: nil, encoding: URLEncoding.default, headers: header).responseJSON { response in
+                
+                print("request: \(response.request!)") // original URL request
+                print("response: \(response.response!)") // URL response
+                print("response data: \(response.data!)") // server data
+                print("result: \(response.result)") // result of response serialization
+                
+                if let JSON = response.result.value as? [[String: Any]] {
+                    print("\nTHE USER EVENTS: \(JSON)\n")
+                    
+                    for item in JSON {
+                        
+                        let event_url = item["event_url"] as! String
+                        
+                        print("\nevent_url: ", event_url)
+                        
+                        let endIndex = event_url.index(event_url.endIndex, offsetBy: -11)
+                        let truncated = event_url.substring(to: endIndex)
+                        
+                        let cache = Shared.dataCache
+                        let URL = NSURL(string: truncated)!
+                        
+                        cache.fetch(URL: URL as URL).onSuccess { (data) in
+                            
+                            let path = NSURL(string: DiskCache.basePath())!.appendingPathComponent("shared-data/original")
+                            let cached = DiskCache(path: (path?.absoluteString)!).path(forKey: String(describing: URL))
+                            let file = NSURL(fileURLWithPath: cached)
+                            
+                            self.images.append(file)
+                            self.collectionView?.reloadData()
+                            
+                            
+                        }
+                        
+                        
+                        
+                        
+//                        let cache = Cache<JSON>(name: "amazonaws")
+////                        let URL = NSURL(string: event_url)!
+//
+//                        let endIndex = event_url.index(event_url.endIndex, offsetBy: -11)
+//                        let truncated = event_url.substring(to: endIndex)
+////                        print("new url thumb: ", truncated)
+//
+//                        cache.fetch(URL: URL(string: truncated)!).onSuccess { jsonResult in
+//                            print("A verrr: ", jsonResult)
+//                        }
+                        
+                    }
+                }
+            }
+        }
     }
     
     // define a variable to store initial touch position
@@ -46,54 +128,63 @@ class UserStoriesController: UICollectionViewController, UICollectionViewDelegat
         }
     }
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+        return images.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: userFeedCell, for: indexPath) as! UserFeedCell
     
-        // Configure the cell
-    
+       
+        
+        let image = self.images[indexPath.item]
+//        print("IMAGE: ", image)
+        
+        let thumbnailImage = ROThumbnail.sharedInstance.getThumbnail(image as URL)
+        
+        cell.photoImageView.image = thumbnailImage
+        
+//        DispatchQueue.global().async {
+//            let asset = AVAsset(url: image as URL)
+//            let assetImgGenerate : AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+//            assetImgGenerate.appliesPreferredTrackTransform = true
+//            let time = CMTimeMake(1, 2)
+//            let img = try? assetImgGenerate.copyCGImage(at: time, actualTime: nil)
+//            if img != nil {
+//                let frameImg  = UIImage(cgImage: img!)
+//                DispatchQueue.main.async(execute: {
+//                    cell.photoImageView.image = frameImg
+//                })
+//            }
+//        }
+        
+//        // so lets play the video
+//        let player: SCPlayer = SCPlayer()
+//        player.setItemBy(image as URL)
+//        let layer = AVPlayerLayer(player: player)
+//        layer.frame = cell.bounds//self.view.bounds
+//        cell.layer.addSublayer(layer) // this is my view
+//        player.play()
+        
+        
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
     }
-    */
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (view.frame.width - 32) / 3
+        return CGSize(width: width, height: width + 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
 
 }

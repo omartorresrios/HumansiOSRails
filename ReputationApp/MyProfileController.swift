@@ -41,8 +41,8 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
     }
     
     func showUserStoriesView() {
-        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()) // CAMABIRLE EL NOMBRE AL CONTROLLER
-        present(userProfileController, animated: true, completion: nil)
+        let userStoriesController = UserStoriesController(collectionViewLayout: UICollectionViewFlowLayout())
+        present(userStoriesController, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -69,7 +69,7 @@ class MyProfileController: UIViewController, UICollectionViewDataSource, UIColle
     
         setupOptionsButtons()
         
-        loadEvents()
+//        loadEvents()
     }
 
     fileprivate func setupOptionsButtons() {

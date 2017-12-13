@@ -1,9 +1,11 @@
 PODS:
   - Alamofire (4.5.0)
+  - HanekeSwift (0.10.1)
   - JDStatusBarNotification (1.5.5)
   - Locksmith (3.0.0)
   - PageMenu (2.0.0)
   - ROThumbnailGenerator (2.1.1)
+  - SCRecorder (2.7.0)
   - SDWebImage (4.2.2):
     - SDWebImage/Core (= 4.2.2)
   - SDWebImage/Core (4.2.2)
@@ -12,24 +14,38 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - HanekeSwift (from `https://github.com/Haneke/HanekeSwift.git`, branch `feature/swift-3`)
   - JDStatusBarNotification
   - Locksmith
   - PageMenu
   - ROThumbnailGenerator
+  - SCRecorder
   - SDWebImage (~> 4.0)
   - SwiftyCam
   - UICircularProgressRing
 
+EXTERNAL SOURCES:
+  HanekeSwift:
+    :branch: feature/swift-3
+    :git: https://github.com/Haneke/HanekeSwift.git
+
+CHECKOUT OPTIONS:
+  HanekeSwift:
+    :commit: 2f6d87f1f725d204d85cb34492e8c399cd5a200f
+    :git: https://github.com/Haneke/HanekeSwift.git
+
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   JDStatusBarNotification: 2b4f29bd68a60d7aa2f190b5265f1ce59c18aaf8
   Locksmith: 310b4cc5031af5728bf4db5d4de547a5100c6a3b
   PageMenu: 9c38fd7e0d9ef4b1408320f55bb907bbc0e538dc
   ROThumbnailGenerator: 4e01a887fc8b4e46a7fa6cd7337dd031a46d6a29
+  SCRecorder: bbb521dbc222908876ec9cd9156bbc8a893bed44
   SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
   SwiftyCam: 86c114177a1b1f5dc2c82384577d0c20b922a31b
   UICircularProgressRing: 8d7904a0eda5a7c821b5852b36c37683867149a8
 
-PODFILE CHECKSUM: 573968f9e81b84e4dfffa27d557760c384cc6fae
+PODFILE CHECKSUM: e551616ef6427e2e127f46348a9b1f9cc16965ff
 
 COCOAPODS: 1.2.1

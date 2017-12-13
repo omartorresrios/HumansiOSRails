@@ -46,6 +46,7 @@
 		A0D0542B1FDB54D000C738F5 /* MyProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0542A1FDB54D000C738F5 /* MyProfileCell.swift */; };
 		A0D0542E1FDB6BF400C738F5 /* SnapContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0542C1FDB6BF300C738F5 /* SnapContainerViewController.swift */; };
 		A0D0542F1FDB6BF400C738F5 /* VerticalScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D0542D1FDB6BF300C738F5 /* VerticalScrollViewController.swift */; };
+		A0DD9D751FE189450080FA91 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0DD9D741FE189450080FA91 /* CacheManager.swift */; };
 		A0EC6BF81FA11F52005384D7 /* VideoLibraryContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EC6BF71FA11F52005384D7 /* VideoLibraryContentCell.swift */; };
 		A0EF64111EC40757006609F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF64101EC40757006609F7 /* AppDelegate.swift */; };
 		A0EF64161EC40757006609F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0EF64141EC40757006609F7 /* Main.storyboard */; };
@@ -109,6 +110,7 @@
 		A0D0542A1FDB54D000C738F5 /* MyProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileCell.swift; sourceTree = "<group>"; };
 		A0D0542C1FDB6BF300C738F5 /* SnapContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapContainerViewController.swift; sourceTree = "<group>"; };
 		A0D0542D1FDB6BF300C738F5 /* VerticalScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalScrollViewController.swift; sourceTree = "<group>"; };
+		A0DD9D741FE189450080FA91 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		A0EC6BF71FA11F52005384D7 /* VideoLibraryContentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLibraryContentCell.swift; sourceTree = "<group>"; };
 		A0EF640D1EC40757006609F7 /* ReputationApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReputationApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0EF64101EC40757006609F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ReputationApp/AppDelegate.swift; sourceTree = "<group>"; };
@@ -313,8 +315,8 @@
 			isa = PBXGroup;
 			children = (
 				A0BD09FD1F96A7E0009C0CD3 /* UserFeedController.swift */,
-				A0BD09FF1F96B71D009C0CD3 /* UserFeedLayout.swift */,
 				A0BD0A021F96BB45009C0CD3 /* UserFeedCell.swift */,
+				A0BD09FF1F96B71D009C0CD3 /* UserFeedLayout.swift */,
 			);
 			name = UserFeed;
 			sourceTree = "<group>";
@@ -364,6 +366,7 @@
 				A0EF64251EC40839006609F7 /* Supporting files */,
 				A09EEB7C1F86BA09009836DC /* FeedViewController.swift */,
 				A0EF9F541F9076CA00B53FA2 /* CircleView.swift */,
+				A0DD9D741FE189450080FA91 /* CacheManager.swift */,
 			);
 			path = ReputationApp;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				A07B958E1F2E84CE008E9EA0 /* Reachability.swift in Sources */,
 				A0EF9F551F9076CA00B53FA2 /* CircleView.swift in Sources */,
 				A0EC6BF81FA11F52005384D7 /* VideoLibraryContentCell.swift in Sources */,
+				A0DD9D751FE189450080FA91 /* CacheManager.swift in Sources */,
 				A07B3C3B1ED91EDB00F10657 /* SignUpController.swift in Sources */,
 				A0D0542B1FDB54D000C738F5 /* MyProfileCell.swift in Sources */,
 				A039853B1F8BEECE0025A7AB /* PreviewVideoContainerView.swift in Sources */,

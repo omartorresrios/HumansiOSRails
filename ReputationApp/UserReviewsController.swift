@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import Locksmith
+import Alamofire
 
 private let reuseIdentifier = "Cell"
 
 class UserReviewsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    var userId: Int?
+    var userFullname: String?
+    var userImageUrl: String?
+    var currentUserDic = [String: Any]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .brown
@@ -23,6 +30,34 @@ class UserReviewsController: UICollectionViewController, UICollectionViewDelegat
 
         let tapGesture = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizerHandler(_:)))
         view.addGestureRecognizer(tapGesture)
+        
+        loadUserReviews()
+    }
+    
+    func loadUserReviews() {
+        // Retreieve Auth_Token from Keychain
+        if let userToken = Locksmith.loadDataForUserAccount(userAccount: "AuthToken") {
+            
+            let authToken = userToken["authenticationToken"] as! String
+            
+            print("Token: \(userToken)")
+            
+            // Set Authorization header
+            let header = ["Authorization": "Token token=\(authToken)"]
+            
+            print("THE HEADER: \(header)")
+            
+            Alamofire.request("https://protected-anchorage-18127.herokuapp.com/api/\(userFullname!)/reviews", method: .get, parameters: nil, encoding: URLEncoding.default, headers: header).responseJSON { (response) in
+                switch response.result {
+                case .success(let JSON):
+                    print("THE USER REVIEWS: \(JSON)")
+                    
+                case .failure(let error):
+                    print(error)
+                }
+            }
+            
+        }
     }
 
     // define a variable to store initial touch position

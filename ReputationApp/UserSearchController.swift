@@ -181,7 +181,7 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         // Initialize functions
-//        loadAllUsers()
+        loadAllUsers()
         
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(handleLogout))
     }
@@ -206,20 +206,26 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
     func showUserStoriesView() {
         userInfoView.removeFromSuperview()
         
-        let userProfileController = UserProfileController(collectionViewLayout: UICollectionViewFlowLayout()) // CAMABIRLE EL NOMBRE AL CONTROLLER
+        let userStoriesController = UserStoriesController(collectionViewLayout: UICollectionViewFlowLayout())
         
-        userProfileController.userId = userSelected.id
-        userProfileController.userFullname = userSelected.fullname
-        userProfileController.userImageUrl = userSelected.profileImageUrl
-        userProfileController.currentUserDic = currentUserDic
+        userStoriesController.userId = userSelected.id
+        userStoriesController.userFullname = userSelected.fullname
+        userStoriesController.userImageUrl = userSelected.profileImageUrl
+        userStoriesController.currentUserDic = currentUserDic
         
-        present(userProfileController, animated: true, completion: nil)
+        present(userStoriesController, animated: true, completion: nil)
     }
     
     func showUserReviewsView() {
         userInfoView.removeFromSuperview()
         
         let userReviewsController = UserReviewsController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        userReviewsController.userId = userSelected.id
+        userReviewsController.userFullname = userSelected.fullname
+        userReviewsController.userImageUrl = userSelected.profileImageUrl
+        userReviewsController.currentUserDic = currentUserDic
+        
         present(userReviewsController, animated: true, completion: nil)
     }
     
@@ -227,6 +233,12 @@ class UserSearchController: UIViewController, UICollectionViewDelegate, UICollec
         userInfoView.removeFromSuperview()
         
         let writeReviewController = WriteReviewController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        writeReviewController.userId = userSelected.id
+        writeReviewController.userFullname = userSelected.fullname
+        writeReviewController.userImageUrl = userSelected.profileImageUrl
+        writeReviewController.currentUserDic = currentUserDic
+        
         present(writeReviewController, animated: true, completion: nil)
     }
 
